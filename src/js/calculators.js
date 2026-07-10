@@ -80,6 +80,43 @@ function largeWeightRow(lb) {
 }
 
 /*
+ * Bagged-vs-bulk cost comparison bar chart. `bulkCost` comes from an
+ * optional "bulk price" field — if the user left it blank or at 0, skip
+ * the comparison entirely rather than showing a misleading $0 bulk cost.
+ */
+function costComparisonBlock(baggedCost, bulkCost) {
+  if (!(bulkCost > 0) || !(baggedCost > 0)) return null;
+
+  const max = Math.max(baggedCost, bulkCost);
+  const baggedPct = (baggedCost / max) * 100;
+  const bulkPct = (bulkCost / max) * 100;
+  const bulkCheaper = bulkCost < baggedCost;
+  const diff = Math.abs(baggedCost - bulkCost);
+  const note = diff < 0.01
+    ? "Bagged and bulk cost about the same for this amount."
+    : bulkCheaper
+      ? `Buying in bulk saves about ${formatCurrency(diff)} for this amount.`
+      : `Bagged costs about ${formatCurrency(diff)} less for this amount.`;
+
+  return `
+    <div class="cost-compare">
+      <p class="cost-compare-title">Bagged vs. bulk</p>
+      <div class="cost-compare-row">
+        <span class="cost-compare-label">Bagged</span>
+        <div class="cost-compare-track"><div class="cost-compare-bar${!bulkCheaper ? " is-best" : ""}" style="width:${baggedPct}%"></div></div>
+        <span class="cost-compare-value">${formatCurrency(baggedCost)}</span>
+      </div>
+      <div class="cost-compare-row">
+        <span class="cost-compare-label">Bulk</span>
+        <div class="cost-compare-track"><div class="cost-compare-bar${bulkCheaper ? " is-best" : ""}" style="width:${bulkPct}%"></div></div>
+        <span class="cost-compare-value">${formatCurrency(bulkCost)}</span>
+      </div>
+      <p class="cost-compare-note">${note}</p>
+    </div>
+  `;
+}
+
+/*
  * Converted values (e.g. 10 ft -> 3.05 m) rarely land on the original
  * imperial step (often step="0.1"), which makes the browser silently
  * refuse to submit the form via native constraint validation — no error,
@@ -343,6 +380,43 @@ function resultRow(label, value) {
 function renderResults(element, rows) {
   element.classList.remove("results-empty");
   element.innerHTML = `<div class="result-list">${rows.filter(Boolean).join("")}</div>`;
+  animateResultValues(element);
+}
+
+/*
+ * Counts each result value up from 0 instead of just snapping into place.
+ * Only animates values that are a single number plus a unit suffix (e.g.
+ * "$27.86", "80 sq ft", "1,833 lb") — a row like "10 ft × 10 ft slab"
+ * has a second number inside the suffix and is left alone rather than
+ * animating in a way that would look broken.
+ */
+function animateResultValues(container) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  container.querySelectorAll(".result-item strong").forEach((el) => {
+    const text = el.textContent;
+    const match = text.match(/^(\$?)([\d,]+\.?\d*)(.*)$/s);
+    if (!match) return;
+    const [, prefix, numStr, suffix] = match;
+    if (/\d/.test(suffix)) return;
+
+    const target = parseFloat(numStr.replace(/,/g, ""));
+    if (Number.isNaN(target)) return;
+    const decimals = (numStr.split(".")[1] || "").length;
+
+    const duration = 500;
+    const start = performance.now();
+
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = `${prefix}${formatNumber(target * eased, decimals)}${suffix}`;
+      if (progress < 1) requestAnimationFrame(tick);
+      else el.textContent = text;
+    }
+
+    requestAnimationFrame(tick);
+  });
 }
 
 function showError(element) {
@@ -380,20 +454,24 @@ bindCalculator("mulch-form", "mulchResults", () => {
   const depth = depthValue("mulchDepth");
   const bagSize = value("mulchBagSize");
   const bagPrice = value("mulchBagPrice");
+  const bulkPrice = value("mulchBulkPrice");
 
   if (isInvalid([length, width, depth, bagSize, bagPrice]) || bagSize === 0) return null;
 
   const squareFeet = length * width;
   const cubicFeet = squareFeet * (depth / 12);
+  const cubicYards = cubicFeet / 27;
   const bagsNeeded = Math.ceil(cubicFeet / bagSize);
   const estimatedCost = bagsNeeded * bagPrice;
+  const bulkCost = bulkPrice > 0 ? cubicYards * bulkPrice : 0;
 
   return [
     resultRow("Area", formatArea(squareFeet)),
     resultRow("Mulch needed", formatVolume(cubicFeet)),
     cubicYardsRow(cubicFeet),
     resultRow("Bags needed", `${bagsNeeded}`),
-    resultRow("Estimated cost", `${formatCurrency(estimatedCost)}`)
+    resultRow("Estimated cost", `${formatCurrency(estimatedCost)}`),
+    costComparisonBlock(estimatedCost, bulkCost)
   ];
 });
 
@@ -412,15 +490,18 @@ bindCalculator("gravel-form", "gravelResults", () => {
   const bagWeight = value("gravelBagWeight");
   const bagPrice = value("gravelBagPrice");
   const overage = value("gravelOverage");
+  const bulkPrice = value("gravelBulkPrice");
 
   if (isInvalid([length, width, depth, density, bagWeight, bagPrice, overage]) || density === 0 || bagWeight === 0) return null;
 
   const multiplier = 1 + (overage / 100);
   const squareFeet = length * width;
   const cubicFeet = squareFeet * (depth / 12) * multiplier;
+  const cubicYards = cubicFeet / 27;
   const pounds = cubicFeet * density;
   const bagsNeeded = Math.ceil(pounds / bagWeight);
   const estimatedCost = bagsNeeded * bagPrice;
+  const bulkCost = bulkPrice > 0 ? cubicYards * bulkPrice : 0;
 
   return [
     resultRow("Area", formatArea(squareFeet)),
@@ -429,7 +510,8 @@ bindCalculator("gravel-form", "gravelResults", () => {
     resultRow("Estimated weight", formatWeight(pounds)),
     largeWeightRow(pounds),
     resultRow("Bags needed", `${bagsNeeded}`),
-    resultRow("Estimated bag cost", `${formatCurrency(estimatedCost)}`)
+    resultRow("Estimated bag cost", `${formatCurrency(estimatedCost)}`),
+    costComparisonBlock(estimatedCost, bulkCost)
   ];
 });
 
@@ -602,13 +684,17 @@ bindCalculator("topsoil-form", "topsoilResults", () => {
   const bagSize = value("topsoilBagSize");
   const bagPrice = value("topsoilBagPrice");
   const overage = value("topsoilOverage");
+  const bulkPrice = value("topsoilBulkPrice");
 
   if (isInvalid([length, width, depth, bagSize, bagPrice, overage]) || bagSize === 0) return null;
 
   const area = length * width;
   const cubicFeetRaw = area * (depth / 12);
   const cubicFeet = cubicFeetRaw * (1 + overage / 100);
+  const cubicYards = cubicFeet / 27;
   const bagsNeeded = Math.ceil(cubicFeet / bagSize);
+  const estimatedCost = bagsNeeded * bagPrice;
+  const bulkCost = bulkPrice > 0 ? cubicYards * bulkPrice : 0;
 
   return [
     resultRow("Area", formatArea(area)),
@@ -616,7 +702,8 @@ bindCalculator("topsoil-form", "topsoilResults", () => {
     resultRow("Topsoil with overage", formatVolume(cubicFeet)),
     cubicYardsRow(cubicFeet),
     resultRow("Bags needed", `${bagsNeeded}`),
-    resultRow("Estimated bag cost", `${formatCurrency(bagsNeeded * bagPrice)}`)
+    resultRow("Estimated bag cost", `${formatCurrency(estimatedCost)}`),
+    costComparisonBlock(estimatedCost, bulkCost)
   ];
 });
 

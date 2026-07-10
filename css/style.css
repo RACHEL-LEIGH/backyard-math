@@ -157,6 +157,12 @@ h3 { font-size: 1.25rem; }
   letter-spacing: 0.08em;
 }
 
+.category-pill[data-category="Landscaping"] { color: #55731f; }
+.category-pill[data-category="Garden"] { color: #2f7a4e; }
+.category-pill[data-category="Hardscaping"] { color: #5b5f66; }
+.category-pill[data-category="Fire Pits"] { color: #b5451c; }
+.category-pill[data-category="Fencing"] { color: #8a5a2b; }
+
 .calculator-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.85fr);
@@ -198,6 +204,8 @@ h3 { font-size: 1.25rem; }
   color: var(--muted);
   white-space: nowrap;
 }
+
+.is-hidden { display: none; }
 
 .helper-text {
   color: var(--muted);

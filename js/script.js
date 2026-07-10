@@ -238,7 +238,7 @@ concreteForm?.addEventListener("submit", function (event) {
 
 document.getElementById("concreteType")?.addEventListener("change", function () {
   document.querySelectorAll("[data-concrete-section]").forEach(section => {
-    section.style.display = section.dataset.concreteSection === this.value ? "block" : "none";
+    section.classList.toggle("is-hidden", section.dataset.concreteSection !== this.value);
   });
 });
 

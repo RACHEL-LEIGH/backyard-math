@@ -46,10 +46,10 @@ faq:
   - q: "Do I need edging around fire pit gravel?"
     a: "Edging helps keep gravel contained and creates a cleaner boundary. It is especially useful for circular fire pit areas in lawns or loose soil."
 ---
-          <label>Outer diameter of gravel area <div class="input-row"><input type="number" id="fireOuterDiameter" min="0" step="0.1" value="10" required><span>feet</span></div></label>
-          <label>Inner diameter to exclude <div class="input-row"><input type="number" id="fireInnerDiameter" min="0" step="0.1" value="3" required><span>feet</span></div></label>
+          <label>Outer diameter of gravel area <div class="input-row"><input type="number" id="fireOuterDiameter" min="0" step="0.1" value="10" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Inner diameter to exclude <div class="input-row"><input type="number" id="fireInnerDiameter" min="0" step="0.1" value="3" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
           <p class="helper-text">Use the fire pit ring or center area diameter if you do not want gravel counted there. Enter 0 if the whole circle gets gravel.</p>
-          <label>Gravel depth <div class="input-row"><input type="number" id="fireGravelDepth" min="0" step="0.1" value="2" required><span>inches</span></div></label>
+          <label>Gravel depth <div class="input-row"><input type="number" id="fireGravelDepth" min="0" step="0.1" value="2" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
           <label>Gravel density <div class="input-row"><input type="number" id="fireGravelDensity" min="1" step="1" value="100" required><span>lb/cu ft</span></div></label>
           <label>Bag size <div class="input-row"><input type="number" id="fireBagWeight" min="0" step="1" value="50" required><span>lb bag</span></div></label>
           <label>Price per bag <div class="input-row"><span>$</span><input type="number" id="fireBagPrice" min="0" step="0.01" value="5.00" required></div></label>

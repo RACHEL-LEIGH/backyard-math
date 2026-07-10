@@ -52,15 +52,15 @@ faq:
     a: "Use it as a planning estimate. Before purchasing, verify your layout, measurements, product dimensions, gate placement, post spacing, and local requirements."
 ---
           <label>Total fence length
-            <div class="input-row"><input type="number" id="fenceLength" min="0" step="0.1" placeholder="100" required><span>linear ft</span></div>
+            <div class="input-row"><input type="number" id="fenceLength" min="0" step="0.1" placeholder="100" required data-conv="length"><span data-imperial="linear ft" data-metric="linear m">linear ft</span></div>
           </label>
 
           <label>Post spacing
-            <div class="input-row"><input type="number" id="postSpacing" min="0" step="0.1" value="8" required><span>feet</span></div>
+            <div class="input-row"><input type="number" id="postSpacing" min="0" step="0.1" value="8" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div>
           </label>
 
           <label>Panel width
-            <div class="input-row"><input type="number" id="panelWidth" min="0" step="0.1" value="8" required><span>feet</span></div>
+            <div class="input-row"><input type="number" id="panelWidth" min="0" step="0.1" value="8" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div>
           </label>
 
           <label>Price per fence panel
@@ -84,7 +84,7 @@ faq:
           </label>
 
           <label>Rail board length
-            <div class="input-row"><input type="number" id="railLength" min="0" step="0.1" value="8" required><span>feet</span></div>
+            <div class="input-row"><input type="number" id="railLength" min="0" step="0.1" value="8" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div>
           </label>
 
           <label>Price per rail board

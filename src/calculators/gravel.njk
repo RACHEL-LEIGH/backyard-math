@@ -47,9 +47,9 @@ faq:
   - q: "Is bulk gravel cheaper than bagged gravel?"
     a: "Bulk gravel is often more cost-effective for larger projects. Bagged gravel may be easier for small projects, limited storage, or areas without delivery access."
 ---
-          <label>Length <div class="input-row"><input type="number" id="gravelLength" min="0" step="0.1" placeholder="10" required><span>feet</span></div></label>
-          <label>Width <div class="input-row"><input type="number" id="gravelWidth" min="0" step="0.1" placeholder="10" required><span>feet</span></div></label>
-          <label>Depth <div class="input-row"><input type="number" id="gravelDepth" min="0" step="0.1" value="2" required><span>inches</span></div></label>
+          <label>Length <div class="input-row"><input type="number" id="gravelLength" min="0" step="0.1" placeholder="10" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Width <div class="input-row"><input type="number" id="gravelWidth" min="0" step="0.1" placeholder="10" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Depth <div class="input-row"><input type="number" id="gravelDepth" min="0" step="0.1" value="2" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
           <label>Gravel density <div class="input-row"><input type="number" id="gravelDensity" min="1" step="1" value="100" required><span>lb/cu ft</span></div></label>
           <p class="helper-text">Use your supplier's density if available. 95–105 lb/cu ft is a common planning range for loose landscape gravel.</p>
           <label>Bag size <div class="input-row"><input type="number" id="gravelBagWeight" min="0" step="1" value="50" required><span>lb bag</span></div></label>

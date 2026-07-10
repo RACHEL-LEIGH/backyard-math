@@ -18,4 +18,4 @@ npm run build   # one-off production build into _site/
 
 ## Deployment
 
-Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the site and publishes it via GitHub Pages Actions deployment. In this repo's **Settings → Pages**, the source must be set to **GitHub Actions** (not "Deploy from a branch") for this to take effect.
+Hosted on [Netlify](https://www.netlify.com/), connected to this repo. `netlify.toml` sets the build command (`npm run build`) and publish directory (`_site`) — pushing to `main` triggers a new deploy automatically once the repo is linked to a Netlify site.

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Retaining Wall Calculator | Blocks, Caps, Gravel & Cost</title>
+  <meta name="description" content="Calculate retaining wall blocks, cap blocks, drainage gravel, and estimated material cost." />
+  <link rel="canonical" href="https://backyardmath.com/calculators/retaining-wall.html" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="../index.html">Backyard Math</a>
+    <nav>
+      <a href="../index.html#calculators">Calculators</a>
+      <a href="../index.html#how-it-works">How It Works</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container narrow">
+        <p class="eyebrow">Homeowner calculator</p>
+        <h1>Retaining Wall Calculator</h1>
+        <p>Estimate retaining wall blocks, cap blocks, drainage gravel, backfill volume, and approximate material cost.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calculator-layout">
+        <form id="wall-form" class="calculator-card">
+          <h2>Enter your wall details</h2>
+          <label>Wall length <div class="input-row"><input type="number" id="wallLength" min="0" step="0.1" placeholder="20" required><span>feet</span></div></label>
+          <label>Wall height <div class="input-row"><input type="number" id="wallHeight" min="0" step="0.1" placeholder="2" required><span>feet</span></div></label>
+          <label>Block length <div class="input-row"><input type="number" id="blockLength" min="0" step="0.1" value="16" required><span>inches</span></div></label>
+          <label>Block height <div class="input-row"><input type="number" id="blockHeight" min="0" step="0.1" value="6" required><span>inches</span></div></label>
+          <label>Price per wall block <div class="input-row"><span>$</span><input type="number" id="blockPrice" min="0" step="0.01" value="3.50" required></div></label>
+          <label>Cap block length <div class="input-row"><input type="number" id="capLength" min="0" step="0.1" value="12" required><span>inches</span></div></label>
+          <label>Price per cap block <div class="input-row"><span>$</span><input type="number" id="capPrice" min="0" step="0.01" value="3.00" required></div></label>
+          <label>Drainage gravel width behind wall <div class="input-row"><input type="number" id="wallGravelWidth" min="0" step="0.1" value="1" required><span>feet</span></div></label>
+          <label>Base gravel depth <div class="input-row"><input type="number" id="wallGravelDepth" min="0" step="0.1" value="6" required><span>inches</span></div></label>
+          <label>Backfill gravel height <div class="input-row"><input type="number" id="wallGravelHeight" min="0" step="0.1" value="2" required><span>feet</span></div></label>
+          <label>Overage <div class="input-row"><input type="number" id="wallOverage" min="0" step="1" value="10" required><span>%</span></div></label>
+          <button class="button full" type="submit">Calculate retaining wall</button>
+        </form>
+        <aside class="results-card" aria-live="polite"><h2>Your estimate</h2><div id="wallResults" class="results-empty">Enter your measurements to see your estimate.</div></aside>
+      </div>
+    </section>
+
+    <section class="section muted">
+      <div class="container narrow content">
+
+        <h2>How this retaining wall calculator works</h2>
+        <p>The calculator estimates block count from wall length, wall height, block length, and block height. It also estimates cap blocks and drainage/backfill gravel.</p>
+        <h2>Important retaining wall note</h2>
+        <p>Retaining walls can fail if they are not designed for drainage, soil pressure, surcharge loads, slope, frost, or height. This calculator is for basic material planning, not engineering.</p>
+
+
+        <h2>Related project planning tools</h2>
+        <p>Need more detail on drainage stone? Use the <a href="/calculators/gravel.html">Gravel Calculator</a> to estimate gravel volume, tons, and bags.</p>
+        <p>Adding a patio near the wall? The <a href="/calculators/paver.html">Paver Calculator</a> estimates pavers, base gravel, and leveling sand.</p>
+        <p>Backfilling or grading nearby? The <a href="/calculators/topsoil.html">Topsoil Calculator</a> can estimate soil for surrounding areas.</p>
+
+        <h2>Frequently asked questions</h2>
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h3>How do I calculate retaining wall blocks?</h3>
+            <p>Estimate how many blocks fit in one course based on wall length and block length, then multiply by the number of courses needed for the wall height.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How many cap blocks do I need?</h3>
+            <p>Cap blocks are usually estimated by dividing the wall length by the cap block length, then adding overage for cuts and breakage.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Do retaining walls need drainage gravel?</h3>
+            <p>Most retaining walls need drainage gravel behind the wall to reduce water pressure. Poor drainage is a common reason walls lean, bulge, or fail.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How much gravel do I need behind a retaining wall?</h3>
+            <p>This calculator estimates drainage and backfill gravel using wall length, gravel width, gravel height, and base depth. Project requirements can vary significantly.</p>
+          </div>
+          <div class="faq-card">
+            <h3>When does a retaining wall need engineering?</h3>
+            <p>Taller walls, walls on slopes, walls supporting driveways or structures, and walls with heavy surcharge loads may require engineering or permits.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How high can I build a retaining wall myself?</h3>
+            <p>That depends on local rules, wall system, soil, drainage, slope, and load. Always check local requirements and manufacturer guidance.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Should I add overage for retaining wall blocks?</h3>
+            <p>Yes. A 5–10% overage helps cover cuts, breakage, layout changes, and measurement differences.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Does this calculator account for geogrid?</h3>
+            <p>No. Geogrid requirements depend on wall height, soil, loads, slope, and block system. Follow manufacturer instructions or professional guidance.</p>
+          </div>
+          <div class="faq-card">
+            <h3>What block size should I enter?</h3>
+            <p>Use the actual face length and height of the wall block you plan to buy. Product dimensions vary by brand and wall system.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Is this calculator enough to design a retaining wall?</h3>
+            <p>No. It is for material planning only. Retaining wall safety depends on design, drainage, soil pressure, installation, and local requirements.</p>
+          </div>
+        </div>
+          <div class="faq-card">
+            <h3>Do retaining walls need drainage gravel?</h3>
+            <p>Most retaining walls need drainage behind the wall to reduce water pressure.</p>
+          </div>
+          <div class="faq-card">
+            <h3>When should I call a professional?</h3>
+            <p>For taller walls, sloped sites, walls near structures, or any wall supporting heavy loads, get professional guidance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+    <section class="section rating-section">
+      <div class="container narrow">
+        <div class="rating-box" data-calculator="retaining-wall">
+          <h2>How useful was this calculator?</h2>
+          <p>Tap a star to rate this tool. Your feedback helps improve Backyard Math.</p>
+          <div class="star-rating" role="group" aria-label="Rate this calculator from 1 to 5 stars">
+            <button type="button" data-rating="1" aria-label="Rate 1 star">☆</button>
+            <button type="button" data-rating="2" aria-label="Rate 2 stars">☆</button>
+            <button type="button" data-rating="3" aria-label="Rate 3 stars">☆</button>
+            <button type="button" data-rating="4" aria-label="Rate 4 stars">☆</button>
+            <button type="button" data-rating="5" aria-label="Rate 5 stars">☆</button>
+          </div>
+          <p class="rating-message" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section related-section">
+      <div class="container">
+        <h2>Related calculators</h2>
+        <p class="section-intro">Keep planning with these related Backyard Math tools.</p>
+        <div class="card-grid related-grid">
+          <a class="tool-card" href="/calculators/gravel.html">
+            <span class="category-pill">Landscaping</span>
+            <h3>Gravel Calculator</h3>
+            <p>Estimate tons, cubic yards, bags, and cost.</p>
+          </a>
+          <a class="tool-card" href="/calculators/paver.html">
+            <span class="category-pill">Hardscaping</span>
+            <h3>Paver Calculator</h3>
+            <p>Estimate pavers, base gravel, sand, and cost.</p>
+          </a>
+          <a class="tool-card" href="/calculators/topsoil.html">
+            <span class="category-pill">Landscaping</span>
+            <h3>Topsoil Calculator</h3>
+            <p>Estimate topsoil for lawns, gardens, and grading.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  <footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; 2026 Backyard Math. Estimates are for planning purposes only.</p>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="/about.html">About</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-of-use.html">Terms of Use</a>
+      <a href="/disclaimer.html">Disclaimer</a>
+    </nav>
+  </div>
+</footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

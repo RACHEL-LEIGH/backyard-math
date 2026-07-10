@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Raised Bed Soil Calculator | Soil Volume, Bags & Cost</title>
+  <meta name="description" content="Calculate soil volume, bag count, cubic yards, and cost for raised garden beds of any size." />
+  <link rel="canonical" href="https://backyardmath.com/calculators/raised-bed-soil.html" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="../index.html">Backyard Math</a>
+    <nav>
+      <a href="../index.html#calculators">Calculators</a>
+      <a href="../index.html#how-it-works">How It Works</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container narrow">
+        <p class="eyebrow">Homeowner calculator</p>
+        <h1>Raised Bed Soil Calculator</h1>
+        <p>Estimate how much soil you need to fill a raised garden bed, including bags, cubic feet, cubic yards, and cost.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calculator-layout">
+        <form id="soil-form" class="calculator-card">
+          <h2>Enter your bed details</h2>
+          <label>Bed length <div class="input-row"><input type="number" id="soilLength" min="0" step="0.1" placeholder="8" required><span>feet</span></div></label>
+          <label>Bed width <div class="input-row"><input type="number" id="soilWidth" min="0" step="0.1" placeholder="4" required><span>feet</span></div></label>
+          <label>Fill depth <div class="input-row"><input type="number" id="soilDepth" min="0" step="0.1" value="12" required><span>inches</span></div></label>
+          <label>Number of beds <div class="input-row"><input type="number" id="soilBeds" min="1" step="1" value="1" required><span>beds</span></div></label>
+          <label>Bag size <div class="input-row"><input type="number" id="soilBagSize" min="0" step="0.1" value="1.5" required><span>cu ft</span></div></label>
+          <label>Price per bag <div class="input-row"><span>$</span><input type="number" id="soilBagPrice" min="0" step="0.01" value="8.00" required></div></label>
+          <label>Overage <div class="input-row"><input type="number" id="soilOverage" min="0" step="1" value="10" required><span>%</span></div></label>
+          <button class="button full" type="submit">Calculate soil</button>
+        </form>
+        <aside class="results-card" aria-live="polite"><h2>Your estimate</h2><div id="soilResults" class="results-empty">Enter your measurements to see your estimate.</div></aside>
+      </div>
+    </section>
+
+    <section class="section muted">
+      <div class="container narrow content">
+
+        <h2>How this raised bed soil calculator works</h2>
+        <p>The calculator multiplies bed length × width × fill depth, then multiplies by the number of beds. It converts the result into cubic feet, cubic yards, and bags.</p>
+        <h2>Soil settling note</h2>
+        <p>Freshly filled beds often settle after watering and planting. A small overage helps reduce the chance that you need another store trip.</p>
+
+
+        <h2>Related project planning tools</h2>
+        <p>For broader lawn or garden areas, use the <a href="/calculators/topsoil.html">Topsoil Calculator</a> to estimate cubic yards or bags.</p>
+        <p>After filling your bed, the <a href="/calculators/mulch.html">Mulch Calculator</a> can help estimate mulch for moisture retention and weed control.</p>
+        <p>Adding paths around your beds? Try the <a href="/calculators/paver.html">Paver Calculator</a> for pavers, base gravel, and sand.</p>
+
+        <h2>Frequently asked questions</h2>
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h3>How do I calculate soil for a raised bed?</h3>
+            <p>Multiply bed length by width by fill depth. This calculator converts the depth from inches to feet and estimates cubic feet, cubic yards, bags, and cost.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How deep should soil be in a raised garden bed?</h3>
+            <p>Many vegetables grow well with 10 to 12 inches of soil or more. Root crops and larger plants may benefit from deeper beds.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How much soil do I need for a 4x8 raised bed?</h3>
+            <p>A 4x8 bed filled 12 inches deep needs 32 cubic feet of soil before overage. If the depth is different, the soil volume changes proportionally.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Should I fill a raised bed completely with bagged soil?</h3>
+            <p>You can, but large beds may require many bags. Bulk garden soil or a raised bed mix may be more practical for bigger beds.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Should I add overage for raised bed soil?</h3>
+            <p>Yes. Soil settles after watering and planting, so a 5–10% buffer is often helpful when filling a new bed.</p>
+          </div>
+          <div class="faq-card">
+            <h3>What is the difference between topsoil and raised bed soil?</h3>
+            <p>Topsoil is a general soil material, while raised bed mixes are often blended for drainage, nutrients, and structure. Product quality varies by supplier.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Can I use garden soil in a raised bed?</h3>
+            <p>Many raised bed products are designed for this use. Avoid using dense, poor-draining soil that may compact heavily in a contained bed.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Why did my raised bed soil level drop?</h3>
+            <p>New soil settles as air pockets collapse, organic matter decomposes, and watering compacts the mix. It is normal to top off beds over time.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How many bags of soil do I need?</h3>
+            <p>Bag count depends on bed volume and bag size. Enter the cubic-foot size listed on the bag label for the most accurate estimate.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Should I mix compost into raised bed soil?</h3>
+            <p>Compost can improve organic matter and nutrients, but the right amount depends on your soil mix and what you are growing.</p>
+          </div>
+        </div>
+          <div class="faq-card">
+            <h3>Should I buy bags or bulk soil?</h3>
+            <p>Bags are convenient for small beds. Bulk soil is often better for multiple or large beds.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Do I need extra soil?</h3>
+            <p>Usually yes. Soil settles, so 5–10% extra is a practical planning buffer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+    <section class="section rating-section">
+      <div class="container narrow">
+        <div class="rating-box" data-calculator="raised-bed-soil">
+          <h2>How useful was this calculator?</h2>
+          <p>Tap a star to rate this tool. Your feedback helps improve Backyard Math.</p>
+          <div class="star-rating" role="group" aria-label="Rate this calculator from 1 to 5 stars">
+            <button type="button" data-rating="1" aria-label="Rate 1 star">☆</button>
+            <button type="button" data-rating="2" aria-label="Rate 2 stars">☆</button>
+            <button type="button" data-rating="3" aria-label="Rate 3 stars">☆</button>
+            <button type="button" data-rating="4" aria-label="Rate 4 stars">☆</button>
+            <button type="button" data-rating="5" aria-label="Rate 5 stars">☆</button>
+          </div>
+          <p class="rating-message" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section related-section">
+      <div class="container">
+        <h2>Related calculators</h2>
+        <p class="section-intro">Keep planning with these related Backyard Math tools.</p>
+        <div class="card-grid related-grid">
+          <a class="tool-card" href="/calculators/topsoil.html">
+            <span class="category-pill">Landscaping</span>
+            <h3>Topsoil Calculator</h3>
+            <p>Estimate topsoil for lawns, gardens, and grading.</p>
+          </a>
+          <a class="tool-card" href="/calculators/mulch.html">
+            <span class="category-pill">Landscaping</span>
+            <h3>Mulch Calculator</h3>
+            <p>Estimate bags, cubic yards, and project cost.</p>
+          </a>
+          <a class="tool-card" href="/calculators/paver.html">
+            <span class="category-pill">Hardscaping</span>
+            <h3>Paver Calculator</h3>
+            <p>Estimate pavers, base gravel, sand, and cost.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  <footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; 2026 Backyard Math. Estimates are for planning purposes only.</p>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="/about.html">About</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-of-use.html">Terms of Use</a>
+      <a href="/disclaimer.html">Disclaimer</a>
+    </nav>
+  </div>
+</footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

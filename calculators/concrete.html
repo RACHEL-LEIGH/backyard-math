@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Concrete Calculator | Slabs, Footings, Post Holes & Cost</title>
+  <meta name="description" content="Calculate concrete volume, bags, cubic yards, and cost for slabs, footings, sidewalks, and fence post holes." />
+  <link rel="canonical" href="https://backyardmath.com/calculators/concrete.html" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="../index.html">Backyard Math</a>
+    <nav>
+      <a href="../index.html#calculators">Calculators</a>
+      <a href="../index.html#how-it-works">How It Works</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container narrow">
+        <p class="eyebrow">Homeowner calculator</p>
+        <h1>Concrete Calculator</h1>
+        <p>Estimate concrete for slabs, continuous footings, and round post holes, including cubic yards, bags, and cost.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calculator-layout">
+        <form id="concrete-form" class="calculator-card">
+          <h2>Enter your concrete details</h2>
+          <label>Project type
+            <div class="input-row"><select id="concreteType">
+              <option value="slab">Slab</option>
+              <option value="footing">Continuous footing</option>
+              <option value="posthole">Round post holes</option>
+            </select></div>
+          </label>
+
+          <div data-concrete-section="slab">
+            <label>Slab length <div class="input-row"><input type="number" id="slabLength" min="0" step="0.1" placeholder="10"><span>feet</span></div></label>
+            <label>Slab width <div class="input-row"><input type="number" id="slabWidth" min="0" step="0.1" placeholder="10"><span>feet</span></div></label>
+            <label>Slab thickness <div class="input-row"><input type="number" id="slabThickness" min="0" step="0.1" value="4"><span>inches</span></div></label>
+          </div>
+
+          <div data-concrete-section="footing" style="display:none">
+            <label>Footing length <div class="input-row"><input type="number" id="footingLength" min="0" step="0.1" placeholder="20"><span>feet</span></div></label>
+            <label>Footing width <div class="input-row"><input type="number" id="footingWidth" min="0" step="0.1" value="1"><span>feet</span></div></label>
+            <label>Footing depth <div class="input-row"><input type="number" id="footingDepth" min="0" step="0.1" value="12"><span>inches</span></div></label>
+          </div>
+
+          <div data-concrete-section="posthole" style="display:none">
+            <label>Hole diameter <div class="input-row"><input type="number" id="holeDiameter" min="0" step="0.1" value="12"><span>inches</span></div></label>
+            <label>Hole depth <div class="input-row"><input type="number" id="holeDepth" min="0" step="0.1" value="24"><span>inches</span></div></label>
+            <label>Number of holes <div class="input-row"><input type="number" id="holeCount" min="1" step="1" value="1"><span>holes</span></div></label>
+          </div>
+
+          <label>Bag yield <div class="input-row"><input type="number" id="concreteBagYield" min="0" step="0.01" value="0.6" required><span>cu ft/bag</span></div></label>
+          <p class="helper-text">Many 80-lb concrete bags yield about 0.6 cu ft. Check your bag label for the exact yield.</p>
+          <label>Price per bag <div class="input-row"><span>$</span><input type="number" id="concreteBagPrice" min="0" step="0.01" value="6.00" required></div></label>
+          <label>Overage <div class="input-row"><input type="number" id="concreteOverage" min="0" step="1" value="10" required><span>%</span></div></label>
+          <button class="button full" type="submit">Calculate concrete</button>
+        </form>
+        <aside class="results-card" aria-live="polite"><h2>Your estimate</h2><div id="concreteResults" class="results-empty">Enter your measurements to see your estimate.</div></aside>
+      </div>
+    </section>
+
+    <section class="section muted">
+      <div class="container narrow content">
+
+        <h2>How this concrete calculator works</h2>
+        <p>Concrete is estimated by volume. For slabs and footings, the calculator uses length × width × thickness. For post holes, it uses the volume of a cylinder.</p>
+        <h2>Why bag yield matters</h2>
+        <p>Concrete bags are sold by weight, but each bag has a volume yield. For accurate bag counts, use the cubic-foot yield printed on your bag.</p>
+
+
+        <h2>Related project planning tools</h2>
+        <p>Still deciding between concrete and pavers? Try the <a href="/calculators/paver.html">Paver Calculator</a> to compare paver material needs.</p>
+        <p>Planning a wall near your concrete project? The <a href="/calculators/retaining-wall.html">Retaining Wall Calculator</a> estimates blocks, caps, and drainage gravel.</p>
+        <p>Many concrete projects need a compacted base. Use the <a href="/calculators/gravel.html">Gravel Calculator</a> to estimate base gravel separately.</p>
+
+        <p>Setting posts for a fence? The <a href="/calculators/fence-cost.html">Fence Cost Calculator</a> estimates posts, panels, gates, concrete, and material cost.</p>
+
+        <h2>Frequently asked questions</h2>
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h3>How do I calculate concrete for a slab?</h3>
+            <p>Multiply slab length by width by thickness. This calculator converts thickness from inches to feet and estimates cubic feet, cubic yards, bags, and cost.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How many cubic feet are in a cubic yard of concrete?</h3>
+            <p>There are 27 cubic feet in one cubic yard. Ready-mix concrete is commonly ordered by the cubic yard.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How many bags of concrete do I need?</h3>
+            <p>Bag count depends on the total volume needed and the bag&#x27;s cubic-foot yield. Enter the yield printed on your bag for the most accurate estimate.</p>
+          </div>
+          <div class="faq-card">
+            <h3>What is the yield of an 80 lb bag of concrete?</h3>
+            <p>Many 80 lb bags yield about 0.6 cubic feet, but you should check the specific bag label because yield can vary by product.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How thick should a concrete slab be?</h3>
+            <p>Many light-duty residential slabs are around 4 inches thick, but the right thickness depends on load, use, soil, reinforcement, and local requirements.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How much concrete do I need for fence post holes?</h3>
+            <p>Post hole concrete is based on the volume of a cylinder: hole diameter, hole depth, and number of holes. The post itself may displace some volume, so estimates can vary.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Should I order extra concrete?</h3>
+            <p>Yes. A 5–10% overage helps account for uneven excavation, form variation, waste, and small measuring differences.</p>
+          </div>
+          <div class="faq-card">
+            <h3>When should I use ready-mix instead of bags?</h3>
+            <p>Ready-mix may be more practical for larger projects. Bagged concrete is often better for small slabs, repairs, footings, or post holes.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Does this calculator account for rebar or wire mesh?</h3>
+            <p>No. This calculator estimates concrete volume only. Reinforcement needs depend on the project, load, local code, and professional guidance.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Can I use this for footings?</h3>
+            <p>Yes, the concrete calculator includes a continuous footing option. Make sure footing dimensions meet project needs and local requirements.</p>
+          </div>
+        </div>
+          <div class="faq-card">
+            <h3>How thick should a concrete slab be?</h3>
+            <p>Many light-duty residential slabs are around 4 inches thick, but project load and local code matter.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Should I add overage?</h3>
+            <p>Yes. 5–10% overage helps account for uneven excavation, form variation, and waste.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+    <section class="section rating-section">
+      <div class="container narrow">
+        <div class="rating-box" data-calculator="concrete">
+          <h2>How useful was this calculator?</h2>
+          <p>Tap a star to rate this tool. Your feedback helps improve Backyard Math.</p>
+          <div class="star-rating" role="group" aria-label="Rate this calculator from 1 to 5 stars">
+            <button type="button" data-rating="1" aria-label="Rate 1 star">☆</button>
+            <button type="button" data-rating="2" aria-label="Rate 2 stars">☆</button>
+            <button type="button" data-rating="3" aria-label="Rate 3 stars">☆</button>
+            <button type="button" data-rating="4" aria-label="Rate 4 stars">☆</button>
+            <button type="button" data-rating="5" aria-label="Rate 5 stars">☆</button>
+          </div>
+          <p class="rating-message" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section related-section">
+      <div class="container">
+        <h2>Related calculators</h2>
+        <p class="section-intro">Keep planning with these related Backyard Math tools.</p>
+        <div class="card-grid related-grid">
+          <a class="tool-card" href="/calculators/paver.html">
+            <span class="category-pill">Hardscaping</span>
+            <h3>Paver Calculator</h3>
+            <p>Estimate pavers, base gravel, sand, and cost.</p>
+          </a>
+          <a class="tool-card" href="/calculators/retaining-wall.html">
+            <span class="category-pill">Hardscaping</span>
+            <h3>Retaining Wall Calculator</h3>
+            <p>Estimate blocks, caps, backfill gravel, and cost.</p>
+          </a>
+          <a class="tool-card" href="/calculators/gravel.html">
+            <span class="category-pill">Landscaping</span>
+            <h3>Gravel Calculator</h3>
+            <p>Estimate tons, cubic yards, bags, and cost.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  <footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; 2026 Backyard Math. Estimates are for planning purposes only.</p>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="/about.html">About</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-of-use.html">Terms of Use</a>
+      <a href="/disclaimer.html">Disclaimer</a>
+    </nav>
+  </div>
+</footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+---
+layout: base.njk
+permalink: /index.html
+title: "Backyard Math | Free Landscaping, Garden & Outdoor Project Calculators"
+description: "Free calculators for landscaping, gardening, patios, fire pits, fencing, gravel, mulch, concrete, and other outdoor projects."
+---
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">DIY planning tools for real homeowners</p>
+          <h1>Plan outdoor projects without guessing.</h1>
+          <p class="hero-copy">
+            Use simple calculators to estimate mulch, gravel, soil, pavers, concrete, retaining walls, and fire pit materials before you buy.
+          </p>
+          <a class="button" href="/calculators/concrete.html">Try the Concrete Calculator</a>
+        </div>
+
+        <div class="hero-card">
+          <h2>Popular tools</h2>
+          <ul>
+            <li>Concrete Calculator</li>
+            <li>Gravel Calculator</li>
+            <li>Raised Bed Soil Calculator</li>
+            <li>Fire Pit Gravel Calculator</li>
+            <li>Fence Cost Calculator</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculators" class="section">
+      <div class="container">
+        <h2>Homeowner calculators</h2>
+        <p class="section-intro">Estimate materials for common landscaping, garden, fire pit, and hardscaping projects.</p>
+
+        {% for group in categorizedCalculators %}
+        <div class="category-section">
+          <h3>{{ group.category }}</h3>
+          <div class="card-grid category-grid">
+          {% for calc in group.items %}
+          <a class="tool-card" href="{{ calc.href }}">
+            <span class="category-pill" data-category="{{ calc.category }}">{{ calc.category }}</span>
+            <h3>{{ calc.title }}</h3>
+            <p>{{ calc.description }}</p>
+          </a>
+          {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </section>
+
+    <section id="how-it-works" class="section muted">
+      <div class="container narrow">
+        <h2>How it works</h2>
+        <p>
+          Enter your project measurements, choose your material depth or product size, and get a quick planning estimate.
+          These tools use standard area and volume formulas, then add optional overage where homeowners commonly need extra material.
+        </p>
+        <p>
+          For the most reliable estimate, use product dimensions and material weights from your local supplier whenever available.
+        </p>
+      </div>
+    </section>
+  </main>

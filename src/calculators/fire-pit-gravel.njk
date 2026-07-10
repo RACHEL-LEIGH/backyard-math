@@ -1,0 +1,56 @@
+---
+layout: calculator.njk
+permalink: /calculators/fire-pit-gravel.html
+title: "Fire Pit Gravel Calculator | Circular Gravel Area Estimator"
+description: "Estimate gravel volume, bags, tons, and cost for circular fire pit seating areas and backyard gathering spaces."
+eyebrow: "Homeowner calculator"
+h1: "Fire Pit Gravel Calculator"
+heroText: "Estimate gravel for a round fire pit seating area, including cubic yards, tons, bags, and cost."
+formId: firepit-form
+calculatorSlug: fire-pit-gravel
+formHeading: "Enter your fire pit area details"
+resultsId: firePitResults
+submitLabel: "Calculate fire pit gravel"
+related:
+  - gravel
+  - paver
+  - retaining-wall
+howItWorks: |
+  <h2>How this fire pit gravel calculator works</h2>
+  <p>The calculator estimates the area of a circle, subtracts the inner fire pit area if needed, then multiplies by gravel depth to estimate volume.</p>
+  <h2>Best gravel depth for fire pit areas</h2>
+  <p>Decorative fire pit seating areas often use about 2 inches of gravel, though deeper layers may be needed for weed control, drainage, or leveling.</p>
+relatedProse: |
+  <p>For rectangular gravel areas or general landscape rock projects, use the <a href="/calculators/gravel.html">Gravel Calculator</a>.</p>
+  <p>Adding a paver border or patio? The <a href="/calculators/paver.html">Paver Calculator</a> estimates pavers, base gravel, and sand.</p>
+  <p>Building a small seating wall or border? The <a href="/calculators/retaining-wall.html">Retaining Wall Calculator</a> can estimate blocks and caps.</p>
+faq:
+  - q: "How do I calculate gravel for a round fire pit area?"
+    a: "Calculate the area of the outer circle, subtract the inner circle if you are leaving the fire pit center uncovered, then multiply by gravel depth."
+  - q: "How deep should gravel be around a fire pit?"
+    a: "Many decorative fire pit seating areas use about 2 inches of gravel. Deeper layers may be needed for leveling, drainage, or weed control."
+  - q: "What kind of gravel is best for a fire pit seating area?"
+    a: "Pea gravel, crushed stone, and some river rock are common for seating areas. Be careful with materials near heat, and follow fire pit manufacturer guidance."
+  - q: "Can I use river rock around a fire pit?"
+    a: "River rock can be used in some surrounding landscape areas, but not all stones are safe near high heat or open flame. Avoid placing unsafe materials directly in or against fire."
+  - q: "Should I use landscape fabric under fire pit gravel?"
+    a: "Landscape fabric can help reduce weeds and separation from soil, but you should consider drainage, heat exposure, and the type of fire pit installation."
+  - q: "How much overage should I add?"
+    a: "A 5–10% overage is useful for uneven ground, settling, edge cleanup, and measuring differences."
+  - q: "What does inner diameter mean?"
+    a: "Inner diameter is the circular area you do not want to include in the gravel estimate, such as a fire pit ring or center feature. Enter 0 if the whole circle gets gravel."
+  - q: "How many bags of gravel do I need for a fire pit area?"
+    a: "Bag count depends on gravel volume, gravel density, and bag weight. This calculator estimates bags using your selected density and bag size."
+  - q: "Is bulk gravel better than bagged gravel for a fire pit?"
+    a: "Bulk gravel can be better for larger seating areas. Bagged gravel is convenient for small spaces, touch-ups, and projects without delivery access."
+  - q: "Do I need edging around fire pit gravel?"
+    a: "Edging helps keep gravel contained and creates a cleaner boundary. It is especially useful for circular fire pit areas in lawns or loose soil."
+---
+          <label>Outer diameter of gravel area <div class="input-row"><input type="number" id="fireOuterDiameter" min="0" step="0.1" value="10" required><span>feet</span></div></label>
+          <label>Inner diameter to exclude <div class="input-row"><input type="number" id="fireInnerDiameter" min="0" step="0.1" value="3" required><span>feet</span></div></label>
+          <p class="helper-text">Use the fire pit ring or center area diameter if you do not want gravel counted there. Enter 0 if the whole circle gets gravel.</p>
+          <label>Gravel depth <div class="input-row"><input type="number" id="fireGravelDepth" min="0" step="0.1" value="2" required><span>inches</span></div></label>
+          <label>Gravel density <div class="input-row"><input type="number" id="fireGravelDensity" min="1" step="1" value="100" required><span>lb/cu ft</span></div></label>
+          <label>Bag size <div class="input-row"><input type="number" id="fireBagWeight" min="0" step="1" value="50" required><span>lb bag</span></div></label>
+          <label>Price per bag <div class="input-row"><span>$</span><input type="number" id="fireBagPrice" min="0" step="0.01" value="5.00" required></div></label>
+          <label>Overage <div class="input-row"><input type="number" id="fireOverage" min="0" step="1" value="10" required><span>%</span></div></label>

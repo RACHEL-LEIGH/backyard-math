@@ -1,0 +1,117 @@
+---
+layout: calculator.njk
+permalink: /calculators/fence-cost.html
+title: "Fence Cost Calculator | Estimate Posts, Panels, Gates & Materials"
+description: "Estimate fence posts, panels, rails, pickets, gates, concrete, and total material cost for residential fencing projects."
+eyebrow: "Fence calculator"
+h1: "Fence Cost Calculator"
+heroText: "Estimate fence posts, panels, rails, pickets, gates, concrete, hardware, and total material cost for a residential fence project."
+formId: fence-form
+calculatorSlug: fence-cost
+formHeading: "Enter your fence details"
+resultsId: fenceResults
+submitLabel: "Calculate fence cost"
+related:
+  - concrete
+  - gravel
+  - topsoil
+howItWorks: |
+  <h2>How this fence cost calculator works</h2>
+  <p>The calculator estimates fence posts from total length and post spacing, then estimates panels, rails, pickets, gates, concrete, hardware, and material cost based on your prices.</p>
+  <p>Fence pricing can vary widely by material, height, terrain, gate layout, hardware, and whether you use prebuilt panels or build the fence board-by-board.</p>
+  <h2>Prebuilt panels vs board-by-board fences</h2>
+  <p>If you are using prebuilt fence panels, enter your panel price and set picket price to 0. If you are building a wood fence board-by-board, set panel price to 0 and use the picket and rail inputs.</p>
+relatedProse: |
+  <p>Setting fence posts in concrete? Use the <a href="/calculators/concrete.html">Concrete Calculator</a> for slabs, footings, and post hole volume.</p>
+  <p>Adding gravel drainage or a border near the fence? Try the <a href="/calculators/gravel.html">Gravel Calculator</a> to estimate volume, tons, bags, and cost.</p>
+  <p>Grading along the fence line? The <a href="/calculators/topsoil.html">Topsoil Calculator</a> can estimate soil for low spots and lawn repair.</p>
+faq:
+  - q: "How do I estimate the cost of a fence?"
+    a: "Start with the total linear feet, then estimate posts, panels or pickets, rails, gates, concrete, hardware, and overage. This calculator combines those material costs into one planning estimate."
+  - q: "How many fence posts do I need?"
+    a: "A simple estimate is total fence length divided by post spacing, rounded up, plus one end post. Corners, gates, terrain changes, and layout breaks may require extra posts."
+  - q: "What is standard fence post spacing?"
+    a: "Many residential wood fences use posts spaced about 6 to 8 feet apart, but the right spacing depends on fence type, panel width, height, wind exposure, and local requirements."
+  - q: "How many fence panels do I need?"
+    a: "Divide the total fence length by the width of one panel, then round up. Add overage if you expect cuts, layout changes, or measurement differences."
+  - q: "Does this calculator work for wood privacy fences?"
+    a: "Yes. It works well for rough material planning on many wood privacy fence projects. Enter your panel width, rail count, picket assumptions, post spacing, and material prices."
+  - q: "Does this calculator work for vinyl or metal fencing?"
+    a: "It can estimate panel, post, gate, and hardware costs for many fence types, but some systems use special brackets, posts, caps, or installation parts that should be added separately."
+  - q: "How much concrete do I need for fence posts?"
+    a: "This calculator estimates concrete by multiplying the number of posts by your selected bags per post. Actual concrete needs depend on hole diameter, hole depth, post size, and soil conditions."
+  - q: "Should I add overage for fence materials?"
+    a: "Yes. A 5–10% overage is useful for cuts, damaged boards, layout adjustments, mistakes, and small measurement differences."
+  - q: "Are gates included in the fence cost?"
+    a: "Yes. Enter the number of gates and price per gate. If your gate needs extra posts, special hardware, or a latch kit, include that in hardware or adjust your post count assumptions."
+  - q: "Why are panels and pickets both included?"
+    a: "Different fence styles are priced differently. If you are using prebuilt panels, enter panel pricing and set picket price to 0. If you are building board-by-board, use pickets and rails and set panel price to 0."
+  - q: "Does this include labor cost?"
+    a: "No. This calculator estimates materials only. Labor can vary widely depending on fence type, terrain, removal of old fencing, post holes, gates, and local rates."
+  - q: "Is this estimate exact enough to order materials?"
+    a: "Use it as a planning estimate. Before purchasing, verify your layout, measurements, product dimensions, gate placement, post spacing, and local requirements."
+---
+          <label>Total fence length
+            <div class="input-row"><input type="number" id="fenceLength" min="0" step="0.1" placeholder="100" required><span>linear ft</span></div>
+          </label>
+
+          <label>Post spacing
+            <div class="input-row"><input type="number" id="postSpacing" min="0" step="0.1" value="8" required><span>feet</span></div>
+          </label>
+
+          <label>Panel width
+            <div class="input-row"><input type="number" id="panelWidth" min="0" step="0.1" value="8" required><span>feet</span></div>
+          </label>
+
+          <label>Price per fence panel
+            <div class="input-row"><span>$</span><input type="number" id="panelPrice" min="0" step="0.01" value="75" required></div>
+          </label>
+
+          <label>Price per post
+            <div class="input-row"><span>$</span><input type="number" id="postPrice" min="0" step="0.01" value="15" required></div>
+          </label>
+
+          <label>Number of gates
+            <div class="input-row"><input type="number" id="gateCount" min="0" step="1" value="1" required><span>gates</span></div>
+          </label>
+
+          <label>Price per gate
+            <div class="input-row"><span>$</span><input type="number" id="gatePrice" min="0" step="0.01" value="150" required></div>
+          </label>
+
+          <label>Rails per fence section
+            <div class="input-row"><input type="number" id="railCount" min="0" step="1" value="2" required><span>rails</span></div>
+          </label>
+
+          <label>Rail board length
+            <div class="input-row"><input type="number" id="railLength" min="0" step="0.1" value="8" required><span>feet</span></div>
+          </label>
+
+          <label>Price per rail board
+            <div class="input-row"><span>$</span><input type="number" id="railPrice" min="0" step="0.01" value="8" required></div>
+          </label>
+
+          <label>Pickets per linear foot
+            <div class="input-row"><input type="number" id="picketsPerFoot" min="0" step="0.1" value="2" required><span>pickets/ft</span></div>
+          </label>
+          <p class="helper-text">If using prebuilt panels only, set picket price to 0. If building board-by-board, set panel price to 0.</p>
+
+          <label>Price per picket
+            <div class="input-row"><span>$</span><input type="number" id="picketPrice" min="0" step="0.01" value="2.50" required></div>
+          </label>
+
+          <label>Concrete bags per post
+            <div class="input-row"><input type="number" id="concreteBagsPerPost" min="0" step="0.1" value="1" required><span>bags/post</span></div>
+          </label>
+
+          <label>Concrete price per bag
+            <div class="input-row"><span>$</span><input type="number" id="concreteBagPrice" min="0" step="0.01" value="6" required></div>
+          </label>
+
+          <label>Hardware / misc. cost
+            <div class="input-row"><span>$</span><input type="number" id="hardwareCost" min="0" step="0.01" value="75" required></div>
+          </label>
+
+          <label>Overage
+            <div class="input-row"><input type="number" id="fenceOverage" min="0" step="1" value="10" required><span>%</span></div>
+          </label>

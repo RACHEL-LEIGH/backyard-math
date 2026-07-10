@@ -1,0 +1,79 @@
+---
+layout: calculator.njk
+permalink: /calculators/concrete.html
+title: "Concrete Calculator | Slabs, Footings, Post Holes & Cost"
+description: "Calculate concrete volume, bags, cubic yards, and cost for slabs, footings, sidewalks, and fence post holes."
+eyebrow: "Homeowner calculator"
+h1: "Concrete Calculator"
+heroText: "Estimate concrete for slabs, continuous footings, and round post holes, including cubic yards, bags, and cost."
+formId: concrete-form
+calculatorSlug: concrete
+formHeading: "Enter your concrete details"
+resultsId: concreteResults
+submitLabel: "Calculate concrete"
+related:
+  - paver
+  - retaining-wall
+  - gravel
+howItWorks: |
+  <h2>How this concrete calculator works</h2>
+  <p>Concrete is estimated by volume. For slabs and footings, the calculator uses length &times; width &times; thickness. For post holes, it uses the volume of a cylinder.</p>
+  <h2>Why bag yield matters</h2>
+  <p>Concrete bags are sold by weight, but each bag has a volume yield. For accurate bag counts, use the cubic-foot yield printed on your bag.</p>
+relatedProse: |
+  <p>Still deciding between concrete and pavers? Try the <a href="/calculators/paver.html">Paver Calculator</a> to compare paver material needs.</p>
+  <p>Planning a wall near your concrete project? The <a href="/calculators/retaining-wall.html">Retaining Wall Calculator</a> estimates blocks, caps, and drainage gravel.</p>
+  <p>Many concrete projects need a compacted base. Use the <a href="/calculators/gravel.html">Gravel Calculator</a> to estimate base gravel separately.</p>
+  <p>Setting posts for a fence? The <a href="/calculators/fence-cost.html">Fence Cost Calculator</a> estimates posts, panels, gates, concrete, and material cost.</p>
+faq:
+  - q: "How do I calculate concrete for a slab?"
+    a: "Multiply slab length by width by thickness. This calculator converts thickness from inches to feet and estimates cubic feet, cubic yards, bags, and cost."
+  - q: "How many cubic feet are in a cubic yard of concrete?"
+    a: "There are 27 cubic feet in one cubic yard. Ready-mix concrete is commonly ordered by the cubic yard."
+  - q: "How many bags of concrete do I need?"
+    a: "Bag count depends on the total volume needed and the bag's cubic-foot yield. Enter the yield printed on your bag for the most accurate estimate."
+  - q: "What is the yield of an 80 lb bag of concrete?"
+    a: "Many 80 lb bags yield about 0.6 cubic feet, but you should check the specific bag label because yield can vary by product."
+  - q: "How thick should a concrete slab be?"
+    a: "Many light-duty residential slabs are around 4 inches thick, but the right thickness depends on load, use, soil, reinforcement, and local requirements."
+  - q: "How much concrete do I need for fence post holes?"
+    a: "Post hole concrete is based on the volume of a cylinder: hole diameter, hole depth, and number of holes. The post itself may displace some volume, so estimates can vary."
+  - q: "Should I order extra concrete?"
+    a: "Yes. A 5–10% overage helps account for uneven excavation, form variation, waste, and small measuring differences."
+  - q: "When should I use ready-mix instead of bags?"
+    a: "Ready-mix may be more practical for larger projects. Bagged concrete is often better for small slabs, repairs, footings, or post holes."
+  - q: "Does this calculator account for rebar or wire mesh?"
+    a: "No. This calculator estimates concrete volume only. Reinforcement needs depend on the project, load, local code, and professional guidance."
+  - q: "Can I use this for footings?"
+    a: "Yes, the concrete calculator includes a continuous footing option. Make sure footing dimensions meet project needs and local requirements."
+---
+          <label>Project type
+            <div class="input-row"><select id="concreteType">
+              <option value="slab">Slab</option>
+              <option value="footing">Continuous footing</option>
+              <option value="posthole">Round post holes</option>
+            </select></div>
+          </label>
+
+          <div data-concrete-section="slab">
+            <label>Slab length <div class="input-row"><input type="number" id="slabLength" min="0" step="0.1" placeholder="10"><span>feet</span></div></label>
+            <label>Slab width <div class="input-row"><input type="number" id="slabWidth" min="0" step="0.1" placeholder="10"><span>feet</span></div></label>
+            <label>Slab thickness <div class="input-row"><input type="number" id="slabThickness" min="0" step="0.1" value="4"><span>inches</span></div></label>
+          </div>
+
+          <div data-concrete-section="footing" class="is-hidden">
+            <label>Footing length <div class="input-row"><input type="number" id="footingLength" min="0" step="0.1" placeholder="20"><span>feet</span></div></label>
+            <label>Footing width <div class="input-row"><input type="number" id="footingWidth" min="0" step="0.1" value="1"><span>feet</span></div></label>
+            <label>Footing depth <div class="input-row"><input type="number" id="footingDepth" min="0" step="0.1" value="12"><span>inches</span></div></label>
+          </div>
+
+          <div data-concrete-section="posthole" class="is-hidden">
+            <label>Hole diameter <div class="input-row"><input type="number" id="holeDiameter" min="0" step="0.1" value="12"><span>inches</span></div></label>
+            <label>Hole depth <div class="input-row"><input type="number" id="holeDepth" min="0" step="0.1" value="24"><span>inches</span></div></label>
+            <label>Number of holes <div class="input-row"><input type="number" id="holeCount" min="1" step="1" value="1"><span>holes</span></div></label>
+          </div>
+
+          <label>Bag yield <div class="input-row"><input type="number" id="concreteBagYield" min="0" step="0.01" value="0.6" required><span>cu ft/bag</span></div></label>
+          <p class="helper-text">Many 80-lb concrete bags yield about 0.6 cu ft. Check your bag label for the exact yield.</p>
+          <label>Price per bag <div class="input-row"><span>$</span><input type="number" id="concreteBagPrice" min="0" step="0.01" value="6.00" required></div></label>
+          <label>Overage <div class="input-row"><input type="number" id="concreteOverage" min="0" step="1" value="10" required><span>%</span></div></label>

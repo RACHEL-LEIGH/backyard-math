@@ -150,6 +150,160 @@ function initUnitToggle() {
 
 initUnitToggle();
 
+/* ---- Live scaling diagrams ---- */
+const DIAGRAM_W = 300;
+const DIAGRAM_H = 170;
+const DIAGRAM_PAD = 20;
+
+function numOrPlaceholder(id) {
+  const el = document.getElementById(id);
+  if (!el) return NaN;
+  const raw = parseFloat(el.value);
+  if (!Number.isNaN(raw)) return raw;
+  return parseFloat(el.placeholder);
+}
+
+function lengthOrPlaceholder(id) {
+  const raw = numOrPlaceholder(id);
+  return Number.isNaN(raw) ? NaN : (isMetric() ? raw / FT_TO_M : raw);
+}
+
+function depthOrPlaceholder(id) {
+  const raw = numOrPlaceholder(id);
+  return Number.isNaN(raw) ? NaN : (isMetric() ? raw / IN_TO_CM : raw);
+}
+
+function clearDiagram(id) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = "";
+}
+
+function diagramSvg(inner) {
+  return `<svg viewBox="0 0 ${DIAGRAM_W} ${DIAGRAM_H}" class="diagram-svg" role="img" aria-hidden="true">${inner}</svg>`;
+}
+
+/*
+ * The height label sits to the left of the rect (text-anchor="end", so it
+ * grows leftward from its anchor point). Reserve a fixed left margin wide
+ * enough for that label regardless of aspect ratio — for a very elongated
+ * shape (e.g. a long, short retaining wall) the rect's own left edge can
+ * otherwise land close enough to x=0 that the label text runs off the
+ * left of the SVG canvas.
+ */
+const DIAGRAM_PAD_LEFT = 54;
+
+function fitRect(wReal, hReal) {
+  const maxW = DIAGRAM_W - DIAGRAM_PAD_LEFT - DIAGRAM_PAD;
+  const maxH = DIAGRAM_H - DIAGRAM_PAD * 2 - 16;
+  const scale = Math.min(maxW / wReal, maxH / hReal);
+  const w = wReal * scale;
+  const h = hReal * scale;
+  return { x: DIAGRAM_PAD_LEFT + (maxW - w) / 2, y: (DIAGRAM_H - h) / 2 + 10, w, h };
+}
+
+function drawRectDiagram(containerId, wReal, hReal, wLabel, hLabel, opts = {}) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  if (!(wReal > 0) || !(hReal > 0)) return clearDiagram(containerId);
+
+  const { x, y, w, h } = fitRect(wReal, hReal);
+  let inner = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="var(--accent)" fill-opacity="0.16" stroke="var(--accent)" stroke-width="2"/>`;
+
+  const cols = Math.min(Math.round(opts.cols) || 1, 14);
+  const rows = Math.min(Math.round(opts.rows) || 1, 10);
+  for (let c = 1; c < cols; c++) {
+    const gx = x + (w / cols) * c;
+    inner += `<line x1="${gx}" y1="${y}" x2="${gx}" y2="${y + h}" stroke="var(--accent)" stroke-opacity="0.35" stroke-width="1"/>`;
+  }
+  for (let r = 1; r < rows; r++) {
+    const gy = y + (h / rows) * r;
+    inner += `<line x1="${x}" y1="${gy}" x2="${x + w}" y2="${gy}" stroke="var(--accent)" stroke-opacity="0.35" stroke-width="1"/>`;
+  }
+
+  inner += `<text x="${x + w / 2}" y="${y - 8}" text-anchor="middle" class="diagram-label">${wLabel}</text>`;
+  inner += `<text x="${x - 8}" y="${y + h / 2}" text-anchor="end" dominant-baseline="middle" class="diagram-label">${hLabel}</text>`;
+
+  container.innerHTML = diagramSvg(inner);
+}
+
+function drawRingDiagram(containerId, outerDiameter, innerDiameter, label) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  if (!(outerDiameter > 0)) return clearDiagram(containerId);
+
+  const maxD = Math.min(DIAGRAM_W, DIAGRAM_H) - DIAGRAM_PAD * 2;
+  const scale = maxD / outerDiameter;
+  const outerR = (outerDiameter * scale) / 2;
+  const innerR = Math.max(0, innerDiameter * scale) / 2;
+  const cx = DIAGRAM_W / 2;
+  const cy = DIAGRAM_H / 2 + 6;
+
+  let inner = `<circle cx="${cx}" cy="${cy}" r="${outerR}" fill="var(--accent)" fill-opacity="0.16" stroke="var(--accent)" stroke-width="2"/>`;
+  if (innerR > 0) {
+    inner += `<circle cx="${cx}" cy="${cy}" r="${innerR}" fill="var(--bg)" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  }
+  inner += `<text x="${cx}" y="${cy - outerR - 8}" text-anchor="middle" class="diagram-label">${label}</text>`;
+
+  container.innerHTML = diagramSvg(inner);
+}
+
+function drawCircleCountDiagram(containerId, diameter, count, label) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  if (!(diameter > 0) || !(count > 0)) return clearDiagram(containerId);
+
+  const shown = Math.min(count, 8);
+  const gap = 14;
+  const maxCircleD = (DIAGRAM_W - DIAGRAM_PAD * 2 - gap * (shown - 1)) / shown;
+  const r = Math.min(maxCircleD, DIAGRAM_H - DIAGRAM_PAD * 2 - 24) / 2;
+  const totalW = shown * (r * 2) + (shown - 1) * gap;
+  const startX = (DIAGRAM_W - totalW) / 2 + r;
+  const cy = DIAGRAM_H / 2 + 6;
+
+  let inner = "";
+  for (let i = 0; i < shown; i++) {
+    const cx = startX + i * (r * 2 + gap);
+    inner += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="var(--accent)" fill-opacity="0.16" stroke="var(--accent)" stroke-width="2"/>`;
+  }
+  const suffix = count > shown ? ` (+${count - shown} more)` : "";
+  inner += `<text x="${DIAGRAM_W / 2}" y="${cy - r - 10}" text-anchor="middle" class="diagram-label">${label}${suffix}</text>`;
+
+  container.innerHTML = diagramSvg(inner);
+}
+
+function drawLineDiagram(containerId, length, spacing, label) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  if (!(length > 0)) return clearDiagram(containerId);
+
+  const x1 = DIAGRAM_PAD + 10;
+  const x2 = DIAGRAM_W - DIAGRAM_PAD - 10;
+  const y = DIAGRAM_H / 2 + 6;
+  const w = x2 - x1;
+
+  const postCount = Math.max(spacing > 0 ? Math.min(Math.floor(length / spacing) + 1, 16) : 2, 2);
+
+  let inner = `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="var(--accent)" stroke-width="2"/>`;
+  for (let i = 0; i < postCount; i++) {
+    const px = x1 + (w / (postCount - 1)) * i;
+    inner += `<line x1="${px}" y1="${y - 12}" x2="${px}" y2="${y + 12}" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>`;
+  }
+  inner += `<text x="${DIAGRAM_W / 2}" y="${y - 26}" text-anchor="middle" class="diagram-label">${label}</text>`;
+
+  container.innerHTML = diagramSvg(inner);
+}
+
+function bindDiagram(formId, draw) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  draw();
+  form.addEventListener("input", draw);
+  form.addEventListener("change", draw);
+  document.querySelectorAll(".unit-toggle-btn").forEach((btn) => {
+    btn.addEventListener("click", () => setTimeout(draw, 0));
+  });
+}
+
 /* ---- Shared calculator helpers ---- */
 function formatNumber(value, decimals = 2) {
   return Number(value).toLocaleString(undefined, {
@@ -243,6 +397,12 @@ bindCalculator("mulch-form", "mulchResults", () => {
   ];
 });
 
+bindDiagram("mulch-form", () => {
+  const length = lengthOrPlaceholder("mulchLength");
+  const width = lengthOrPlaceholder("mulchWidth");
+  drawRectDiagram("mulch-form-diagram", length, width, formatLength(length), formatLength(width));
+});
+
 /* Gravel Calculator */
 bindCalculator("gravel-form", "gravelResults", () => {
   const length = lengthValue("gravelLength");
@@ -273,6 +433,12 @@ bindCalculator("gravel-form", "gravelResults", () => {
   ];
 });
 
+bindDiagram("gravel-form", () => {
+  const length = lengthOrPlaceholder("gravelLength");
+  const width = lengthOrPlaceholder("gravelWidth");
+  drawRectDiagram("gravel-form-diagram", length, width, formatLength(length), formatLength(width));
+});
+
 /* Raised Bed Soil Calculator */
 bindCalculator("soil-form", "soilResults", () => {
   const length = lengthValue("soilLength");
@@ -297,6 +463,12 @@ bindCalculator("soil-form", "soilResults", () => {
     resultRow("Bags needed", `${bagsNeeded}`),
     resultRow("Estimated cost", `${formatCurrency(bagsNeeded * bagPrice)}`)
   ];
+});
+
+bindDiagram("soil-form", () => {
+  const length = lengthOrPlaceholder("soilLength");
+  const width = lengthOrPlaceholder("soilWidth");
+  drawRectDiagram("soil-form-diagram", length, width, formatLength(length), formatLength(width));
 });
 
 /* Paver Calculator */
@@ -328,6 +500,20 @@ bindCalculator("paver-form", "paverResults", () => {
     resultRow("Base gravel", formatVolumeCombined(baseCubicFeet)),
     resultRow("Leveling sand", formatVolumeCombined(sandCubicFeet))
   ];
+});
+
+bindDiagram("paver-form", () => {
+  const patioLength = lengthOrPlaceholder("patioLength");
+  const patioWidth = lengthOrPlaceholder("patioWidth");
+  const paverLength = depthOrPlaceholder("paverLength");
+  const paverWidth = depthOrPlaceholder("paverWidth");
+  let cols = 1;
+  let rows = 1;
+  if (paverLength > 0 && paverWidth > 0 && patioLength > 0 && patioWidth > 0) {
+    cols = Math.max(1, Math.round((patioLength * 12) / paverLength));
+    rows = Math.max(1, Math.round((patioWidth * 12) / paverWidth));
+  }
+  drawRectDiagram("paver-form-diagram", patioLength, patioWidth, formatLength(patioLength), formatLength(patioWidth), { cols, rows });
 });
 
 /* Concrete Calculator */
@@ -388,6 +574,26 @@ bindCalculator("concrete-form", "concreteResults", () => {
   ];
 });
 
+function drawConcreteDiagram() {
+  const type = document.getElementById("concreteType")?.value;
+  if (type === "footing") {
+    const length = lengthOrPlaceholder("footingLength");
+    const width = lengthOrPlaceholder("footingWidth");
+    drawRectDiagram("concrete-form-diagram", length, width, formatLength(length), formatLength(width));
+  } else if (type === "posthole") {
+    const diameter = depthOrPlaceholder("holeDiameter");
+    const count = parseInt(document.getElementById("holeCount")?.value, 10) || 1;
+    drawCircleCountDiagram("concrete-form-diagram", diameter, count, `${count} post hole${count === 1 ? "" : "s"}`);
+  } else {
+    const length = lengthOrPlaceholder("slabLength");
+    const width = lengthOrPlaceholder("slabWidth");
+    drawRectDiagram("concrete-form-diagram", length, width, formatLength(length), formatLength(width));
+  }
+}
+
+bindDiagram("concrete-form", drawConcreteDiagram);
+document.getElementById("concreteType")?.addEventListener("change", drawConcreteDiagram);
+
 /* Topsoil Calculator */
 bindCalculator("topsoil-form", "topsoilResults", () => {
   const length = lengthValue("topsoilLength");
@@ -412,6 +618,12 @@ bindCalculator("topsoil-form", "topsoilResults", () => {
     resultRow("Bags needed", `${bagsNeeded}`),
     resultRow("Estimated bag cost", `${formatCurrency(bagsNeeded * bagPrice)}`)
   ];
+});
+
+bindDiagram("topsoil-form", () => {
+  const length = lengthOrPlaceholder("topsoilLength");
+  const width = lengthOrPlaceholder("topsoilWidth");
+  drawRectDiagram("topsoil-form-diagram", length, width, formatLength(length), formatLength(width));
 });
 
 /* Retaining Wall Calculator */
@@ -450,6 +662,20 @@ bindCalculator("wall-form", "wallResults", () => {
   ];
 });
 
+bindDiagram("wall-form", () => {
+  const wallLength = lengthOrPlaceholder("wallLength");
+  const wallHeight = lengthOrPlaceholder("wallHeight");
+  const blockLength = depthOrPlaceholder("blockLength");
+  const blockHeight = depthOrPlaceholder("blockHeight");
+  let cols = 1;
+  let rows = 1;
+  if (blockLength > 0 && blockHeight > 0 && wallLength > 0 && wallHeight > 0) {
+    cols = Math.max(1, Math.round((wallLength * 12) / blockLength));
+    rows = Math.max(1, Math.round((wallHeight * 12) / blockHeight));
+  }
+  drawRectDiagram("wall-form-diagram", wallLength, wallHeight, formatLength(wallLength), formatLength(wallHeight), { cols, rows });
+});
+
 /* Fire Pit Gravel Calculator */
 bindCalculator("firepit-form", "firePitResults", () => {
   const outerDiameter = lengthValue("fireOuterDiameter");
@@ -476,6 +702,12 @@ bindCalculator("firepit-form", "firePitResults", () => {
     resultRow("Bags needed", `${bagsNeeded}`),
     resultRow("Estimated bag cost", `${formatCurrency(bagsNeeded * bagPrice)}`)
   ];
+});
+
+bindDiagram("firepit-form", () => {
+  const outer = lengthOrPlaceholder("fireOuterDiameter");
+  const inner = lengthOrPlaceholder("fireInnerDiameter");
+  drawRingDiagram("firepit-form-diagram", outer, inner, `${formatLength(outer)} diameter`);
 });
 
 /* Fence Cost Calculator */
@@ -541,6 +773,12 @@ bindCalculator("fence-form", "fenceResults", () => {
     resultRow("Gate cost", `${formatCurrency(gateCost)}`),
     resultRow("Estimated material cost", `${formatCurrency(materialCost)}`)
   ];
+});
+
+bindDiagram("fence-form", () => {
+  const length = lengthOrPlaceholder("fenceLength");
+  const spacing = lengthOrPlaceholder("postSpacing");
+  drawLineDiagram("fence-form-diagram", length, spacing, formatLinearLength(length));
 });
 
 /* Calculator Rating Tracking */

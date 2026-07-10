@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.gaId }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ site.gaId }}');
+  </script>
+
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}" />
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ title }}" />
+  <meta property="og:description" content="{{ description }}" />
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  <meta property="og:image" content="{{ site.ogImage }}" />
+  <meta property="og:site_name" content="{{ site.name }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ title }}" />
+  <meta name="twitter:description" content="{{ description }}" />
+  <meta name="twitter:image" content="{{ site.ogImage }}" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="/index.html">Backyard Math</a>
+    <nav>
+      <a href="/index.html#calculators">Calculators</a>
+      <a href="/index.html#how-it-works">How It Works</a>
+    </nav>
+  </div>
+</header>
+
+  {{ content | safe }}
+
+  <footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; 2026 Backyard Math. Estimates are for planning purposes only.</p>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="/about.html">About</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-of-use.html">Terms of Use</a>
+      <a href="/disclaimer.html">Disclaimer</a>
+    </nav>
+  </div>
+</footer>
+{% if faq %}
+  {% faqSchema faq %}
+  <script src="/js/calculators.js"></script>
+{% endif %}
+</body>
+</html>

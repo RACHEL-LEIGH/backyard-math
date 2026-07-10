@@ -1,0 +1,59 @@
+---
+layout: calculator.njk
+permalink: /calculators/retaining-wall.html
+title: "Retaining Wall Calculator | Blocks, Caps, Gravel & Cost"
+description: "Calculate retaining wall blocks, cap blocks, drainage gravel, and estimated material cost."
+eyebrow: "Homeowner calculator"
+h1: "Retaining Wall Calculator"
+heroText: "Estimate retaining wall blocks, cap blocks, drainage gravel, backfill volume, and approximate material cost."
+formId: wall-form
+calculatorSlug: retaining-wall
+formHeading: "Enter your wall details"
+resultsId: wallResults
+submitLabel: "Calculate retaining wall"
+related:
+  - gravel
+  - paver
+  - topsoil
+howItWorks: |
+  <h2>How this retaining wall calculator works</h2>
+  <p>The calculator estimates block count from wall length, wall height, block length, and block height. It also estimates cap blocks and drainage/backfill gravel.</p>
+  <h2>Important retaining wall note</h2>
+  <p>Retaining walls can fail if they are not designed for drainage, soil pressure, surcharge loads, slope, frost, or height. This calculator is for basic material planning, not engineering.</p>
+relatedProse: |
+  <p>Need more detail on drainage stone? Use the <a href="/calculators/gravel.html">Gravel Calculator</a> to estimate gravel volume, tons, and bags.</p>
+  <p>Adding a patio near the wall? The <a href="/calculators/paver.html">Paver Calculator</a> estimates pavers, base gravel, and leveling sand.</p>
+  <p>Backfilling or grading nearby? The <a href="/calculators/topsoil.html">Topsoil Calculator</a> can estimate soil for surrounding areas.</p>
+faq:
+  - q: "How do I calculate retaining wall blocks?"
+    a: "Estimate how many blocks fit in one course based on wall length and block length, then multiply by the number of courses needed for the wall height."
+  - q: "How many cap blocks do I need?"
+    a: "Cap blocks are usually estimated by dividing the wall length by the cap block length, then adding overage for cuts and breakage."
+  - q: "Do retaining walls need drainage gravel?"
+    a: "Most retaining walls need drainage gravel behind the wall to reduce water pressure. Poor drainage is a common reason walls lean, bulge, or fail."
+  - q: "How much gravel do I need behind a retaining wall?"
+    a: "This calculator estimates drainage and backfill gravel using wall length, gravel width, gravel height, and base depth. Project requirements can vary significantly."
+  - q: "When does a retaining wall need engineering?"
+    a: "Taller walls, walls on slopes, walls supporting driveways or structures, and walls with heavy surcharge loads may require engineering or permits."
+  - q: "How high can I build a retaining wall myself?"
+    a: "That depends on local rules, wall system, soil, drainage, slope, and load. Always check local requirements and manufacturer guidance."
+  - q: "Should I add overage for retaining wall blocks?"
+    a: "Yes. A 5–10% overage helps cover cuts, breakage, layout changes, and measurement differences."
+  - q: "Does this calculator account for geogrid?"
+    a: "No. Geogrid requirements depend on wall height, soil, loads, slope, and block system. Follow manufacturer instructions or professional guidance."
+  - q: "What block size should I enter?"
+    a: "Use the actual face length and height of the wall block you plan to buy. Product dimensions vary by brand and wall system."
+  - q: "Is this calculator enough to design a retaining wall?"
+    a: "No. It is for material planning only. Retaining wall safety depends on design, drainage, soil pressure, installation, and local requirements."
+---
+          <label>Wall length <div class="input-row"><input type="number" id="wallLength" min="0" step="0.1" placeholder="20" required><span>feet</span></div></label>
+          <label>Wall height <div class="input-row"><input type="number" id="wallHeight" min="0" step="0.1" placeholder="2" required><span>feet</span></div></label>
+          <label>Block length <div class="input-row"><input type="number" id="blockLength" min="0" step="0.1" value="16" required><span>inches</span></div></label>
+          <label>Block height <div class="input-row"><input type="number" id="blockHeight" min="0" step="0.1" value="6" required><span>inches</span></div></label>
+          <label>Price per wall block <div class="input-row"><span>$</span><input type="number" id="blockPrice" min="0" step="0.01" value="3.50" required></div></label>
+          <label>Cap block length <div class="input-row"><input type="number" id="capLength" min="0" step="0.1" value="12" required><span>inches</span></div></label>
+          <label>Price per cap block <div class="input-row"><span>$</span><input type="number" id="capPrice" min="0" step="0.01" value="3.00" required></div></label>
+          <label>Drainage gravel width behind wall <div class="input-row"><input type="number" id="wallGravelWidth" min="0" step="0.1" value="1" required><span>feet</span></div></label>
+          <label>Base gravel depth <div class="input-row"><input type="number" id="wallGravelDepth" min="0" step="0.1" value="6" required><span>inches</span></div></label>
+          <label>Backfill gravel height <div class="input-row"><input type="number" id="wallGravelHeight" min="0" step="0.1" value="2" required><span>feet</span></div></label>
+          <label>Overage <div class="input-row"><input type="number" id="wallOverage" min="0" step="1" value="10" required><span>%</span></div></label>

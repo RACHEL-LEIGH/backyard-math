@@ -1,0 +1,14 @@
+{
+  "name": "backyard-math",
+  "version": "1.0.0",
+  "description": "Backyard Math — outdoor project calculators",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "start": "eleventy --serve"
+  },
+  "private": "true",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

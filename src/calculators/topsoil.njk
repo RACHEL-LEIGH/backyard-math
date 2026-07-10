@@ -1,0 +1,55 @@
+---
+layout: calculator.njk
+permalink: /calculators/topsoil.html
+title: "Topsoil Calculator | Cubic Yards, Bags & Cost Estimate"
+description: "Estimate topsoil volume, bags, cubic yards, and cost for lawns, grading, gardens, and landscaping projects."
+eyebrow: "Homeowner calculator"
+h1: "Topsoil Calculator"
+heroText: "Estimate topsoil for lawns, gardens, grading, and landscape projects, including cubic yards, bags, and cost."
+formId: topsoil-form
+calculatorSlug: topsoil
+formHeading: "Enter your project details"
+resultsId: topsoilResults
+submitLabel: "Calculate topsoil"
+related:
+  - mulch
+  - raised-bed-soil
+  - gravel
+howItWorks: |
+  <h2>How this topsoil calculator works</h2>
+  <p>The calculator multiplies area by depth to estimate topsoil volume. It then converts cubic feet to cubic yards and estimates the number of bags if you are buying bagged topsoil.</p>
+  <h2>Common topsoil depths</h2>
+  <p>A thin lawn topdressing may use less than an inch. New garden beds, grading, and low-spot filling may need several inches depending on the project.</p>
+relatedProse: |
+  <p>Finishing a landscape bed? Use the <a href="/calculators/mulch.html">Mulch Calculator</a> to estimate mulch after topsoil is placed.</p>
+  <p>Filling garden boxes instead? The <a href="/calculators/raised-bed-soil.html">Raised Bed Soil Calculator</a> is better for raised bed dimensions.</p>
+  <p>For paths, drainage, or decorative areas, the <a href="/calculators/gravel.html">Gravel Calculator</a> can estimate volume and weight.</p>
+  <p>Repairing soil along a new fence line? Use the <a href="/calculators/fence-cost.html">Fence Cost Calculator</a> to estimate the fence materials first.</p>
+faq:
+  - q: "How do I calculate how much topsoil I need?"
+    a: "Multiply the length and width of the area to get square feet, then multiply by desired depth. This calculator converts the result into cubic feet, cubic yards, bags, and cost."
+  - q: "How deep should topsoil be for a lawn?"
+    a: "For topdressing, a thin layer may be enough. For new lawns or filling low spots, you may need several inches depending on the condition of the existing soil."
+  - q: "How many cubic feet are in a cubic yard of topsoil?"
+    a: "There are 27 cubic feet in one cubic yard. Bulk topsoil is often sold by the cubic yard."
+  - q: "How many bags of topsoil are in a cubic yard?"
+    a: "It depends on bag size. For example, one-cubic-foot bags require 27 bags per cubic yard, while 1.5-cubic-foot bags require 18 bags per cubic yard."
+  - q: "Should I add extra topsoil for settling?"
+    a: "Yes. Soil can settle after rain, watering, and compaction. A small overage helps reduce the chance of coming up short."
+  - q: "Is topsoil the same as garden soil?"
+    a: "Not always. Topsoil is general surface soil, while garden soil may include added organic matter or amendments. Product quality and ingredients vary."
+  - q: "Is bulk topsoil cheaper than bagged topsoil?"
+    a: "Bulk topsoil is often more economical for large areas. Bagged topsoil is convenient for small repairs, small beds, and projects without delivery access."
+  - q: "Can I spread topsoil over existing grass?"
+    a: "A light topdressing can be spread over grass, but deep layers may smother existing turf. For lawn repair, keep the layer appropriate for your goal."
+  - q: "How much topsoil do I need to level a yard?"
+    a: "That depends on the area and average fill depth. Measure several low spots and use an average depth for a planning estimate."
+  - q: "Should I screen topsoil before using it?"
+    a: "Screened topsoil is often easier to spread and may contain fewer rocks, clumps, and debris. It can be useful for lawns and finished landscape areas."
+---
+          <label>Length <div class="input-row"><input type="number" id="topsoilLength" min="0" step="0.1" placeholder="20" required><span>feet</span></div></label>
+          <label>Width <div class="input-row"><input type="number" id="topsoilWidth" min="0" step="0.1" placeholder="10" required><span>feet</span></div></label>
+          <label>Topsoil depth <div class="input-row"><input type="number" id="topsoilDepth" min="0" step="0.1" value="2" required><span>inches</span></div></label>
+          <label>Bag size <div class="input-row"><input type="number" id="topsoilBagSize" min="0" step="0.1" value="1" required><span>cu ft</span></div></label>
+          <label>Price per bag <div class="input-row"><span>$</span><input type="number" id="topsoilBagPrice" min="0" step="0.01" value="4.00" required></div></label>
+          <label>Overage <div class="input-row"><input type="number" id="topsoilOverage" min="0" step="1" value="10" required><span>%</span></div></label>

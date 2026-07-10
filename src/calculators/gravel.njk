@@ -1,0 +1,57 @@
+---
+layout: calculator.njk
+permalink: /calculators/gravel.html
+title: "Gravel Calculator | Tons, Cubic Yards, Bags & Cost Estimate"
+description: "Estimate gravel in cubic yards, tons, bags, and cost. Great for driveways, drainage projects, walkways, patios, and landscaping."
+eyebrow: "Homeowner calculator"
+h1: "Gravel Calculator"
+heroText: "Estimate gravel volume, tons, bags, and cost for paths, patios, fire pits, and drainage projects."
+formId: gravel-form
+calculatorSlug: gravel
+formHeading: "Enter your project details"
+resultsId: gravelResults
+submitLabel: "Calculate gravel"
+related:
+  - fire-pit-gravel
+  - paver
+  - retaining-wall
+howItWorks: |
+  <h2>How this gravel calculator works</h2>
+  <p>The calculator multiplies length &times; width &times; depth to estimate volume, converts cubic feet to cubic yards, and estimates weight using your selected gravel density.</p>
+  <h2>Why gravel density matters</h2>
+  <p>Pea gravel, river rock, crushed stone, and compacted base can weigh different amounts. Use your supplier's density for the most accurate estimate.</p>
+relatedProse: |
+  <p>Planning a circular fire pit seating area? Use the <a href="/calculators/fire-pit-gravel.html">Fire Pit Gravel Calculator</a> for round gravel layouts.</p>
+  <p>Building a patio? The <a href="/calculators/paver.html">Paver Calculator</a> estimates pavers, base gravel, and leveling sand.</p>
+  <p>Working near a wall? The <a href="/calculators/retaining-wall.html">Retaining Wall Calculator</a> can estimate blocks, caps, and drainage gravel.</p>
+  <p>Planning a fence line with gravel drainage or edging? The <a href="/calculators/fence-cost.html">Fence Cost Calculator</a> can estimate posts, panels, gates, and materials.</p>
+faq:
+  - q: "How do I calculate how much gravel I need?"
+    a: "Measure the length and width of the area, choose a depth, and calculate volume. This calculator converts that volume into cubic feet, cubic yards, estimated weight, tons, bags, and cost."
+  - q: "How deep should gravel be for landscaping?"
+    a: "Decorative gravel areas are often around 2 inches deep. Walkways, drainage areas, and base layers may need more depth depending on the project and site conditions."
+  - q: "How many cubic feet are in a cubic yard of gravel?"
+    a: "There are 27 cubic feet in one cubic yard. Gravel suppliers often sell bulk gravel by the cubic yard or by the ton."
+  - q: "How many tons of gravel do I need?"
+    a: "Tons depend on volume and material density. This calculator estimates tons by multiplying cubic feet by the selected pounds-per-cubic-foot density, then dividing by 2,000."
+  - q: "What gravel density should I use?"
+    a: "If your supplier provides a density, use that number. For rough planning, loose landscape gravel is often estimated around 95 to 105 pounds per cubic foot, but materials vary."
+  - q: "Is pea gravel lighter than crushed stone?"
+    a: "It can be, depending on stone type, size, moisture, and compaction. Crushed stone, river rock, pea gravel, and base gravel can all have different weights."
+  - q: "Should I add overage when ordering gravel?"
+    a: "Yes. A 5–10% overage helps account for uneven ground, settling, compaction, spillage, and measuring differences."
+  - q: "Should I use landscape fabric under gravel?"
+    a: "Landscape fabric can help reduce weeds and keep gravel from mixing into soil, but drainage, slope, and project type matter."
+  - q: "How much does a 50 lb bag of gravel cover?"
+    a: "Coverage depends on depth. A 50 lb bag covers much more area at 1 inch deep than at 3 inches deep. Use the bag weight and density settings to estimate bag count."
+  - q: "Is bulk gravel cheaper than bagged gravel?"
+    a: "Bulk gravel is often more cost-effective for larger projects. Bagged gravel may be easier for small projects, limited storage, or areas without delivery access."
+---
+          <label>Length <div class="input-row"><input type="number" id="gravelLength" min="0" step="0.1" placeholder="10" required><span>feet</span></div></label>
+          <label>Width <div class="input-row"><input type="number" id="gravelWidth" min="0" step="0.1" placeholder="10" required><span>feet</span></div></label>
+          <label>Depth <div class="input-row"><input type="number" id="gravelDepth" min="0" step="0.1" value="2" required><span>inches</span></div></label>
+          <label>Gravel density <div class="input-row"><input type="number" id="gravelDensity" min="1" step="1" value="100" required><span>lb/cu ft</span></div></label>
+          <p class="helper-text">Use your supplier's density if available. 95–105 lb/cu ft is a common planning range for loose landscape gravel.</p>
+          <label>Bag size <div class="input-row"><input type="number" id="gravelBagWeight" min="0" step="1" value="50" required><span>lb bag</span></div></label>
+          <label>Price per bag <div class="input-row"><span>$</span><input type="number" id="gravelBagPrice" min="0" step="0.01" value="5.00" required></div></label>
+          <label>Overage <div class="input-row"><input type="number" id="gravelOverage" min="0" step="1" value="10" required><span>%</span></div></label>

@@ -1,0 +1,56 @@
+---
+layout: calculator.njk
+permalink: /calculators/paver.html
+title: "Paver Calculator | Estimate Pavers, Base Gravel & Sand"
+description: "Estimate pavers, base gravel, leveling sand, and project cost for patios, walkways, and hardscape projects."
+eyebrow: "Homeowner calculator"
+h1: "Paver Calculator"
+heroText: "Estimate patio pavers, base gravel, leveling sand, and approximate material cost."
+formId: paver-form
+calculatorSlug: paver
+formHeading: "Enter your patio details"
+resultsId: paverResults
+submitLabel: "Calculate pavers"
+related:
+  - gravel
+  - concrete
+  - retaining-wall
+howItWorks: |
+  <h2>How this paver calculator works</h2>
+  <p>The calculator divides the patio area by the area of one paver, then adds overage for cuts, breakage, and layout waste.</p>
+  <h2>Base gravel and sand</h2>
+  <p>The calculator estimates base gravel and leveling sand using patio area &times; depth. Local soil, drainage, climate, and project load can change final requirements.</p>
+relatedProse: |
+  <p>Need a separate estimate for base material? The <a href="/calculators/gravel.html">Gravel Calculator</a> estimates gravel volume, tons, bags, and cost.</p>
+  <p>Comparing a paver patio to a slab? Use the <a href="/calculators/concrete.html">Concrete Calculator</a> to estimate slab concrete.</p>
+  <p>If your patio needs a border or grade change, the <a href="/calculators/retaining-wall.html">Retaining Wall Calculator</a> can estimate blocks and backfill.</p>
+faq:
+  - q: "How do I calculate how many pavers I need?"
+    a: "Calculate the patio area, calculate the area of one paver, then divide patio area by paver area. This calculator also adds overage for cuts, breakage, and layout waste."
+  - q: "How much overage should I add for pavers?"
+    a: "A 10% overage is common for basic layouts. Complex patterns, diagonal layouts, borders, curves, and lots of cuts may require more."
+  - q: "How much base gravel do I need for pavers?"
+    a: "Base gravel is calculated from patio area multiplied by base depth. Many pedestrian patios use several inches of compacted base, but local soil and project requirements matter."
+  - q: "How much sand goes under pavers?"
+    a: "Many paver projects use about 1 inch of leveling sand over a compacted base. Always follow the paver manufacturer's installation guidance."
+  - q: "Can this calculator be used for irregular patios?"
+    a: "It is best for rectangular or square patios. For curved or irregular shapes, estimate the area separately and add extra overage for cuts and waste."
+  - q: "Do pavers need a gravel base?"
+    a: "Most paver patios and walkways need a compacted base to reduce settling and movement. Base requirements depend on soil, climate, drainage, and use."
+  - q: "Should I include joints between pavers?"
+    a: "For rough material estimates, paver dimensions usually get you close. Joint spacing, pattern, and edging can affect the final count."
+  - q: "How do I estimate pavers for a walkway?"
+    a: "Use the walkway length and width as the project area, then enter your paver dimensions. Add overage if the walkway has curves or cuts."
+  - q: "Are larger pavers easier to estimate?"
+    a: "Larger pavers may require fewer pieces, but they can be heavier and may create more noticeable cuts at edges. Layout still matters."
+  - q: "Should I buy all pavers at once?"
+    a: "For color consistency, it is often smart to buy enough pavers from the same batch or order, especially for visible patio projects."
+---
+          <label>Patio length <div class="input-row"><input type="number" id="patioLength" min="0" step="0.1" placeholder="12" required><span>feet</span></div></label>
+          <label>Patio width <div class="input-row"><input type="number" id="patioWidth" min="0" step="0.1" placeholder="10" required><span>feet</span></div></label>
+          <label>Paver length <div class="input-row"><input type="number" id="paverLength" min="0" step="0.01" value="12" required><span>inches</span></div></label>
+          <label>Paver width <div class="input-row"><input type="number" id="paverWidth" min="0" step="0.01" value="12" required><span>inches</span></div></label>
+          <label>Price per paver <div class="input-row"><span>$</span><input type="number" id="paverPrice" min="0" step="0.01" value="2.50" required></div></label>
+          <label>Base gravel depth <div class="input-row"><input type="number" id="baseDepth" min="0" step="0.1" value="4" required><span>inches</span></div></label>
+          <label>Leveling sand depth <div class="input-row"><input type="number" id="sandDepth" min="0" step="0.1" value="1" required><span>inches</span></div></label>
+          <label>Overage for cuts/breakage <div class="input-row"><input type="number" id="paverOverage" min="0" step="1" value="10" required><span>%</span></div></label>

@@ -1,0 +1,79 @@
+---
+layout: base.njk
+---
+  <main>
+    <section class="page-hero">
+      <div class="container narrow">
+        <p class="eyebrow">{{ eyebrow }}</p>
+        <h1>{{ h1 }}</h1>
+        <p>{{ heroText }}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calculator-layout">
+        <form id="{{ formId }}" class="calculator-card">
+          <h2>{{ formHeading }}</h2>
+          {{ content | safe }}
+          <button class="button full" type="submit">{{ submitLabel }}</button>
+        </form>
+        <aside class="results-card" aria-live="polite">
+          <h2>Your estimate</h2>
+          <div id="{{ resultsId }}" class="results-empty">Enter your measurements to see your estimate.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section muted">
+      <div class="container narrow content">
+        {{ howItWorks | safe }}
+
+        <h2>Related project planning tools</h2>
+        {{ relatedProse | safe }}
+
+        <h2>Frequently asked questions</h2>
+        <div class="faq-grid">
+          {% for item in faq %}
+          <div class="faq-card">
+            <h3>{{ item.q }}</h3>
+            <p>{{ item.a }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+    <section class="section rating-section">
+      <div class="container narrow">
+        <div class="rating-box" data-calculator="{{ calculatorSlug }}">
+          <h2>How useful was this calculator?</h2>
+          <p>Tap a star to rate this tool. Your feedback helps improve Backyard Math.</p>
+          <div class="star-rating" role="group" aria-label="Rate this calculator from 1 to 5 stars">
+            <button type="button" data-rating="1" aria-label="Rate 1 star">☆</button>
+            <button type="button" data-rating="2" aria-label="Rate 2 stars">☆</button>
+            <button type="button" data-rating="3" aria-label="Rate 3 stars">☆</button>
+            <button type="button" data-rating="4" aria-label="Rate 4 stars">☆</button>
+            <button type="button" data-rating="5" aria-label="Rate 5 stars">☆</button>
+          </div>
+          <p class="rating-message" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section related-section">
+      <div class="container">
+        <h2>Related calculators</h2>
+        <p class="section-intro">Keep planning with these related Backyard Math tools.</p>
+        <div class="card-grid related-grid">
+          {% for slug in related %}
+          {% set calc = calculators | findCalculator(slug) %}
+          <a class="tool-card" href="{{ calc.href }}">
+            <span class="category-pill" data-category="{{ calc.category }}">{{ calc.category }}</span>
+            <h3>{{ calc.title }}</h3>
+            <p>{{ calc.description }}</p>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </section>

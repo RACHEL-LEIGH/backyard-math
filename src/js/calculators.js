@@ -1,4 +1,156 @@
-/* Shared helpers */
+/* ---- Unit system ---- */
+const UNIT_KEY = "bm-units";
+const FT_TO_M = 0.3048;
+const IN_TO_CM = 2.54;
+const LB_TO_KG = 0.45359237;
+const CUFT_TO_CUM = 0.0283168;
+const SQFT_TO_SQM = 0.0929030;
+
+function getUnitSystem() {
+  return localStorage.getItem(UNIT_KEY) === "metric" ? "metric" : "imperial";
+}
+
+function isMetric() {
+  return getUnitSystem() === "metric";
+}
+
+function round(value, decimals) {
+  const factor = 10 ** decimals;
+  return Math.round(value * factor) / factor;
+}
+
+/* Reads a length input (authored in feet) and returns feet, regardless of the displayed unit system */
+function lengthValue(id) {
+  const raw = parseFloat(document.getElementById(id).value);
+  return isMetric() ? raw / FT_TO_M : raw;
+}
+
+/* Reads a small-dimension input (authored in inches) and returns inches */
+function depthValue(id) {
+  const raw = parseFloat(document.getElementById(id).value);
+  return isMetric() ? raw / IN_TO_CM : raw;
+}
+
+function formatLength(feet, decimals = 2) {
+  return isMetric()
+    ? `${formatNumber(feet * FT_TO_M, decimals)} m`
+    : `${formatNumber(feet, decimals)} ft`;
+}
+
+function formatLinearLength(feet, decimals = 2) {
+  return isMetric()
+    ? `${formatNumber(feet * FT_TO_M, decimals)} linear m`
+    : `${formatNumber(feet, decimals)} linear ft`;
+}
+
+function formatArea(sqft, decimals = 2) {
+  return isMetric()
+    ? `${formatNumber(sqft * SQFT_TO_SQM, decimals)} m²`
+    : `${formatNumber(sqft, decimals)} sq ft`;
+}
+
+function formatVolume(cuft, decimals = 2) {
+  return isMetric()
+    ? `${formatNumber(cuft * CUFT_TO_CUM, 3)} m³`
+    : `${formatNumber(cuft, decimals)} cu ft`;
+}
+
+/* For rows that originally combined "X cu ft / Y cu yd" into one line */
+function formatVolumeCombined(cuft) {
+  return isMetric()
+    ? formatVolume(cuft)
+    : `${formatNumber(cuft)} cu ft / ${formatNumber(cuft / 27)} cu yd`;
+}
+
+/* Cubic yards only makes sense as a standalone row in imperial; omit it in metric */
+function cubicYardsRow(cuft) {
+  return isMetric() ? null : resultRow("Cubic yards", `${formatNumber(cuft / 27)} cu yd`);
+}
+
+function formatWeight(lb, decimals = 0) {
+  return isMetric()
+    ? `${formatNumber(lb * LB_TO_KG, decimals)} kg`
+    : `${formatNumber(lb, decimals)} lb`;
+}
+
+function largeWeightRow(lb) {
+  return isMetric()
+    ? resultRow("Estimated tonnes", `${formatNumber((lb * LB_TO_KG) / 1000)} t`)
+    : resultRow("Estimated tons", `${formatNumber(lb / 2000)} tons`);
+}
+
+/*
+ * Converted values (e.g. 10 ft -> 3.05 m) rarely land on the original
+ * imperial step (often step="0.1"), which makes the browser silently
+ * refuse to submit the form via native constraint validation — no error,
+ * just nothing happens. Relax step to "any" in metric mode and restore
+ * each field's original step (captured once on load) back in imperial.
+ */
+function setUnitAwareStep(el, toSystem) {
+  if (toSystem === "metric") {
+    if (el.dataset.origStep === undefined) el.dataset.origStep = el.step || "any";
+    el.step = "any";
+  } else if (el.dataset.origStep !== undefined) {
+    el.step = el.dataset.origStep;
+  }
+}
+
+function convertAllInputs(fromSystem, toSystem) {
+  if (fromSystem === toSystem) return;
+
+  const convert = (raw, factor, decimals) =>
+    toSystem === "metric" ? round(raw * factor, decimals) : round(raw / factor, decimals);
+
+  document.querySelectorAll('input[data-conv="length"]').forEach((el) => {
+    setUnitAwareStep(el, toSystem);
+    const raw = parseFloat(el.value);
+    if (!Number.isNaN(raw)) el.value = convert(raw, FT_TO_M, 2);
+    const placeholder = parseFloat(el.placeholder);
+    if (!Number.isNaN(placeholder)) el.placeholder = convert(placeholder, FT_TO_M, 2);
+  });
+
+  document.querySelectorAll('input[data-conv="depth"]').forEach((el) => {
+    setUnitAwareStep(el, toSystem);
+    const raw = parseFloat(el.value);
+    if (!Number.isNaN(raw)) el.value = convert(raw, IN_TO_CM, 1);
+    const placeholder = parseFloat(el.placeholder);
+    if (!Number.isNaN(placeholder)) el.placeholder = convert(placeholder, IN_TO_CM, 1);
+  });
+}
+
+function updateUnitLabels() {
+  const system = getUnitSystem();
+
+  document.querySelectorAll("[data-imperial]").forEach((span) => {
+    span.textContent = system === "metric" ? span.dataset.metric : span.dataset.imperial;
+  });
+
+  document.querySelectorAll(".unit-toggle-btn").forEach((btn) => {
+    const active = btn.dataset.units === system;
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+  });
+}
+
+function initUnitToggle() {
+  if (getUnitSystem() === "metric") convertAllInputs("imperial", "metric");
+  updateUnitLabels();
+
+  document.querySelectorAll(".unit-toggle-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const newSystem = btn.dataset.units;
+      const oldSystem = getUnitSystem();
+      if (newSystem === oldSystem) return;
+      convertAllInputs(oldSystem, newSystem);
+      localStorage.setItem(UNIT_KEY, newSystem);
+      updateUnitLabels();
+    });
+  });
+}
+
+initUnitToggle();
+
+/* ---- Shared calculator helpers ---- */
 function formatNumber(value, decimals = 2) {
   return Number(value).toLocaleString(undefined, {
     minimumFractionDigits: 0,
@@ -36,7 +188,7 @@ function resultRow(label, value) {
 
 function renderResults(element, rows) {
   element.classList.remove("results-empty");
-  element.innerHTML = `<div class="result-list">${rows.join("")}</div>`;
+  element.innerHTML = `<div class="result-list">${rows.filter(Boolean).join("")}</div>`;
 }
 
 function showError(element) {
@@ -69,9 +221,9 @@ function bindCalculator(formId, resultsId, compute) {
 
 /* Mulch Calculator */
 bindCalculator("mulch-form", "mulchResults", () => {
-  const length = value("mulchLength");
-  const width = value("mulchWidth");
-  const depth = value("mulchDepth");
+  const length = lengthValue("mulchLength");
+  const width = lengthValue("mulchWidth");
+  const depth = depthValue("mulchDepth");
   const bagSize = value("mulchBagSize");
   const bagPrice = value("mulchBagPrice");
 
@@ -79,14 +231,13 @@ bindCalculator("mulch-form", "mulchResults", () => {
 
   const squareFeet = length * width;
   const cubicFeet = squareFeet * (depth / 12);
-  const cubicYards = cubicFeet / 27;
   const bagsNeeded = Math.ceil(cubicFeet / bagSize);
   const estimatedCost = bagsNeeded * bagPrice;
 
   return [
-    resultRow("Area", `${formatNumber(squareFeet)} sq ft`),
-    resultRow("Mulch needed", `${formatNumber(cubicFeet)} cu ft`),
-    resultRow("Cubic yards", `${formatNumber(cubicYards)} cu yd`),
+    resultRow("Area", formatArea(squareFeet)),
+    resultRow("Mulch needed", formatVolume(cubicFeet)),
+    cubicYardsRow(cubicFeet),
     resultRow("Bags needed", `${bagsNeeded}`),
     resultRow("Estimated cost", `${formatCurrency(estimatedCost)}`)
   ];
@@ -94,9 +245,9 @@ bindCalculator("mulch-form", "mulchResults", () => {
 
 /* Gravel Calculator */
 bindCalculator("gravel-form", "gravelResults", () => {
-  const length = value("gravelLength");
-  const width = value("gravelWidth");
-  const depth = value("gravelDepth");
+  const length = lengthValue("gravelLength");
+  const width = lengthValue("gravelWidth");
+  const depth = depthValue("gravelDepth");
   const density = value("gravelDensity");
   const bagWeight = value("gravelBagWeight");
   const bagPrice = value("gravelBagPrice");
@@ -107,55 +258,26 @@ bindCalculator("gravel-form", "gravelResults", () => {
   const multiplier = 1 + (overage / 100);
   const squareFeet = length * width;
   const cubicFeet = squareFeet * (depth / 12) * multiplier;
-  const cubicYards = cubicFeet / 27;
   const pounds = cubicFeet * density;
-  const tons = pounds / 2000;
   const bagsNeeded = Math.ceil(pounds / bagWeight);
   const estimatedCost = bagsNeeded * bagPrice;
 
   return [
-    resultRow("Area", `${formatNumber(squareFeet)} sq ft`),
-    resultRow("Volume with overage", `${formatNumber(cubicFeet)} cu ft`),
-    resultRow("Cubic yards", `${formatNumber(cubicYards)} cu yd`),
-    resultRow("Estimated weight", `${formatNumber(pounds, 0)} lb`),
-    resultRow("Estimated tons", `${formatNumber(tons)} tons`),
+    resultRow("Area", formatArea(squareFeet)),
+    resultRow("Volume with overage", formatVolume(cubicFeet)),
+    cubicYardsRow(cubicFeet),
+    resultRow("Estimated weight", formatWeight(pounds)),
+    largeWeightRow(pounds),
     resultRow("Bags needed", `${bagsNeeded}`),
     resultRow("Estimated bag cost", `${formatCurrency(estimatedCost)}`)
   ];
 });
 
-/* Topsoil Calculator */
-bindCalculator("topsoil-form", "topsoilResults", () => {
-  const length = value("topsoilLength");
-  const width = value("topsoilWidth");
-  const depth = value("topsoilDepth");
-  const bagSize = value("topsoilBagSize");
-  const bagPrice = value("topsoilBagPrice");
-  const overage = value("topsoilOverage");
-
-  if (isInvalid([length, width, depth, bagSize, bagPrice, overage]) || bagSize === 0) return null;
-
-  const area = length * width;
-  const cubicFeetRaw = area * (depth / 12);
-  const cubicFeet = cubicFeetRaw * (1 + overage / 100);
-  const cubicYards = cubicFeet / 27;
-  const bagsNeeded = Math.ceil(cubicFeet / bagSize);
-
-  return [
-    resultRow("Area", `${formatNumber(area)} sq ft`),
-    resultRow("Topsoil before overage", `${formatNumber(cubicFeetRaw)} cu ft`),
-    resultRow("Topsoil with overage", `${formatNumber(cubicFeet)} cu ft`),
-    resultRow("Cubic yards", `${formatNumber(cubicYards)} cu yd`),
-    resultRow("Bags needed", `${bagsNeeded}`),
-    resultRow("Estimated bag cost", `${formatCurrency(bagsNeeded * bagPrice)}`)
-  ];
-});
-
 /* Raised Bed Soil Calculator */
 bindCalculator("soil-form", "soilResults", () => {
-  const length = value("soilLength");
-  const width = value("soilWidth");
-  const depth = value("soilDepth");
+  const length = lengthValue("soilLength");
+  const width = lengthValue("soilWidth");
+  const depth = depthValue("soilDepth");
   const beds = intValue("soilBeds");
   const bagSize = value("soilBagSize");
   const bagPrice = value("soilBagPrice");
@@ -165,14 +287,13 @@ bindCalculator("soil-form", "soilResults", () => {
 
   const cubicFeetRaw = length * width * (depth / 12) * beds;
   const cubicFeet = cubicFeetRaw * (1 + overage / 100);
-  const cubicYards = cubicFeet / 27;
   const bagsNeeded = Math.ceil(cubicFeet / bagSize);
 
   return [
     resultRow("Number of beds", `${beds}`),
-    resultRow("Soil before overage", `${formatNumber(cubicFeetRaw)} cu ft`),
-    resultRow("Soil with overage", `${formatNumber(cubicFeet)} cu ft`),
-    resultRow("Cubic yards", `${formatNumber(cubicYards)} cu yd`),
+    resultRow("Soil before overage", formatVolume(cubicFeetRaw)),
+    resultRow("Soil with overage", formatVolume(cubicFeet)),
+    cubicYardsRow(cubicFeet),
     resultRow("Bags needed", `${bagsNeeded}`),
     resultRow("Estimated cost", `${formatCurrency(bagsNeeded * bagPrice)}`)
   ];
@@ -180,13 +301,13 @@ bindCalculator("soil-form", "soilResults", () => {
 
 /* Paver Calculator */
 bindCalculator("paver-form", "paverResults", () => {
-  const patioLength = value("patioLength");
-  const patioWidth = value("patioWidth");
-  const paverLength = value("paverLength");
-  const paverWidth = value("paverWidth");
+  const patioLength = lengthValue("patioLength");
+  const patioWidth = lengthValue("patioWidth");
+  const paverLength = depthValue("paverLength");
+  const paverWidth = depthValue("paverWidth");
   const paverPrice = value("paverPrice");
-  const baseDepth = value("baseDepth");
-  const sandDepth = value("sandDepth");
+  const baseDepth = depthValue("baseDepth");
+  const sandDepth = depthValue("sandDepth");
   const overage = value("paverOverage");
 
   if (isInvalid([patioLength, patioWidth, paverLength, paverWidth, paverPrice, baseDepth, sandDepth, overage]) || paverLength === 0 || paverWidth === 0) return null;
@@ -199,13 +320,13 @@ bindCalculator("paver-form", "paverResults", () => {
   const sandCubicFeet = patioArea * (sandDepth / 12);
 
   return [
-    resultRow("Patio area", `${formatNumber(patioArea)} sq ft`),
-    resultRow("Paver area", `${formatNumber(paverArea)} sq ft each`),
+    resultRow("Patio area", formatArea(patioArea)),
+    resultRow("Paver area", `${formatArea(paverArea, 3)} each`),
     resultRow("Pavers before overage", `${formatNumber(paversRaw, 1)}`),
     resultRow("Pavers to buy", `${paversNeeded}`),
     resultRow("Estimated paver cost", `${formatCurrency(paversNeeded * paverPrice)}`),
-    resultRow("Base gravel", `${formatNumber(baseCubicFeet)} cu ft / ${formatNumber(baseCubicFeet / 27)} cu yd`),
-    resultRow("Leveling sand", `${formatNumber(sandCubicFeet)} cu ft / ${formatNumber(sandCubicFeet / 27)} cu yd`)
+    resultRow("Base gravel", formatVolumeCombined(baseCubicFeet)),
+    resultRow("Leveling sand", formatVolumeCombined(sandCubicFeet))
   ];
 });
 
@@ -225,26 +346,26 @@ bindCalculator("concrete-form", "concreteResults", () => {
   let label = "";
 
   if (projectType === "slab") {
-    const length = value("slabLength");
-    const width = value("slabWidth");
-    const thickness = value("slabThickness");
+    const length = lengthValue("slabLength");
+    const width = lengthValue("slabWidth");
+    const thickness = depthValue("slabThickness");
     if (isInvalid([length, width, thickness])) return null;
     cubicFeet = length * width * (thickness / 12);
-    label = `${formatNumber(length)} ft × ${formatNumber(width)} ft slab`;
+    label = `${formatLength(length)} × ${formatLength(width)} slab`;
   }
 
   if (projectType === "footing") {
-    const length = value("footingLength");
-    const width = value("footingWidth");
-    const depth = value("footingDepth");
+    const length = lengthValue("footingLength");
+    const width = lengthValue("footingWidth");
+    const depth = depthValue("footingDepth");
     if (isInvalid([length, width, depth])) return null;
     cubicFeet = length * width * (depth / 12);
-    label = `${formatNumber(length)} ft continuous footing`;
+    label = `${formatLength(length)} continuous footing`;
   }
 
   if (projectType === "posthole") {
-    const diameter = value("holeDiameter");
-    const depth = value("holeDepth");
+    const diameter = depthValue("holeDiameter");
+    const depth = depthValue("holeDepth");
     const holes = intValue("holeCount");
     if (isInvalid([diameter, depth, holes]) || holes < 1) return null;
     const radiusFeet = (diameter / 12) / 2;
@@ -255,14 +376,39 @@ bindCalculator("concrete-form", "concreteResults", () => {
   if (isInvalid([cubicFeet, bagSize, bagPrice, overage]) || bagSize === 0) return null;
 
   const cubicFeetWithOverage = cubicFeet * (1 + overage / 100);
-  const cubicYards = cubicFeetWithOverage / 27;
   const bagsNeeded = Math.ceil(cubicFeetWithOverage / bagSize);
 
   return [
     resultRow("Project", label),
-    resultRow("Concrete before overage", `${formatNumber(cubicFeet)} cu ft`),
-    resultRow("Concrete with overage", `${formatNumber(cubicFeetWithOverage)} cu ft`),
-    resultRow("Cubic yards", `${formatNumber(cubicYards)} cu yd`),
+    resultRow("Concrete before overage", formatVolume(cubicFeet)),
+    resultRow("Concrete with overage", formatVolume(cubicFeetWithOverage)),
+    cubicYardsRow(cubicFeetWithOverage),
+    resultRow("Bags needed", `${bagsNeeded}`),
+    resultRow("Estimated bag cost", `${formatCurrency(bagsNeeded * bagPrice)}`)
+  ];
+});
+
+/* Topsoil Calculator */
+bindCalculator("topsoil-form", "topsoilResults", () => {
+  const length = lengthValue("topsoilLength");
+  const width = lengthValue("topsoilWidth");
+  const depth = depthValue("topsoilDepth");
+  const bagSize = value("topsoilBagSize");
+  const bagPrice = value("topsoilBagPrice");
+  const overage = value("topsoilOverage");
+
+  if (isInvalid([length, width, depth, bagSize, bagPrice, overage]) || bagSize === 0) return null;
+
+  const area = length * width;
+  const cubicFeetRaw = area * (depth / 12);
+  const cubicFeet = cubicFeetRaw * (1 + overage / 100);
+  const bagsNeeded = Math.ceil(cubicFeet / bagSize);
+
+  return [
+    resultRow("Area", formatArea(area)),
+    resultRow("Topsoil before overage", formatVolume(cubicFeetRaw)),
+    resultRow("Topsoil with overage", formatVolume(cubicFeet)),
+    cubicYardsRow(cubicFeet),
     resultRow("Bags needed", `${bagsNeeded}`),
     resultRow("Estimated bag cost", `${formatCurrency(bagsNeeded * bagPrice)}`)
   ];
@@ -270,16 +416,16 @@ bindCalculator("concrete-form", "concreteResults", () => {
 
 /* Retaining Wall Calculator */
 bindCalculator("wall-form", "wallResults", () => {
-  const wallLength = value("wallLength");
-  const wallHeight = value("wallHeight");
-  const blockLength = value("blockLength");
-  const blockHeight = value("blockHeight");
+  const wallLength = lengthValue("wallLength");
+  const wallHeight = lengthValue("wallHeight");
+  const blockLength = depthValue("blockLength");
+  const blockHeight = depthValue("blockHeight");
   const blockPrice = value("blockPrice");
-  const capLength = value("capLength");
+  const capLength = depthValue("capLength");
   const capPrice = value("capPrice");
-  const gravelWidth = value("wallGravelWidth");
-  const gravelDepth = value("wallGravelDepth");
-  const gravelHeight = value("wallGravelHeight");
+  const gravelWidth = lengthValue("wallGravelWidth");
+  const gravelDepth = depthValue("wallGravelDepth");
+  const gravelHeight = lengthValue("wallGravelHeight");
   const overage = value("wallOverage");
 
   if (isInvalid([wallLength, wallHeight, blockLength, blockHeight, blockPrice, capLength, capPrice, gravelWidth, gravelDepth, gravelHeight, overage]) || blockLength === 0 || blockHeight === 0 || capLength === 0) return null;
@@ -300,15 +446,15 @@ bindCalculator("wall-form", "wallResults", () => {
     resultRow("Wall blocks to buy", `${blocksNeeded}`),
     resultRow("Cap blocks to buy", `${capsNeeded}`),
     resultRow("Estimated block cost", `${formatCurrency((blocksNeeded * blockPrice) + (capsNeeded * capPrice))}`),
-    resultRow("Drainage/backfill gravel", `${formatNumber(totalGravelCubicFeet)} cu ft / ${formatNumber(totalGravelCubicFeet / 27)} cu yd`)
+    resultRow("Drainage/backfill gravel", formatVolumeCombined(totalGravelCubicFeet))
   ];
 });
 
 /* Fire Pit Gravel Calculator */
 bindCalculator("firepit-form", "firePitResults", () => {
-  const outerDiameter = value("fireOuterDiameter");
-  const innerDiameter = value("fireInnerDiameter");
-  const depth = value("fireGravelDepth");
+  const outerDiameter = lengthValue("fireOuterDiameter");
+  const innerDiameter = lengthValue("fireInnerDiameter");
+  const depth = depthValue("fireGravelDepth");
   const density = value("fireGravelDensity");
   const bagWeight = value("fireBagWeight");
   const bagPrice = value("fireBagPrice");
@@ -318,17 +464,15 @@ bindCalculator("firepit-form", "firePitResults", () => {
 
   const area = circleArea(outerDiameter) - circleArea(innerDiameter);
   const cubicFeet = area * (depth / 12) * (1 + overage / 100);
-  const cubicYards = cubicFeet / 27;
   const pounds = cubicFeet * density;
-  const tons = pounds / 2000;
   const bagsNeeded = Math.ceil(pounds / bagWeight);
 
   return [
-    resultRow("Gravel area", `${formatNumber(area)} sq ft`),
-    resultRow("Gravel volume", `${formatNumber(cubicFeet)} cu ft`),
-    resultRow("Cubic yards", `${formatNumber(cubicYards)} cu yd`),
-    resultRow("Estimated weight", `${formatNumber(pounds, 0)} lb`),
-    resultRow("Estimated tons", `${formatNumber(tons)} tons`),
+    resultRow("Gravel area", formatArea(area)),
+    resultRow("Gravel volume", formatVolume(cubicFeet)),
+    cubicYardsRow(cubicFeet),
+    resultRow("Estimated weight", formatWeight(pounds)),
+    largeWeightRow(pounds),
     resultRow("Bags needed", `${bagsNeeded}`),
     resultRow("Estimated bag cost", `${formatCurrency(bagsNeeded * bagPrice)}`)
   ];
@@ -336,15 +480,15 @@ bindCalculator("firepit-form", "firePitResults", () => {
 
 /* Fence Cost Calculator */
 bindCalculator("fence-form", "fenceResults", () => {
-  const fenceLength = value("fenceLength");
-  const postSpacing = value("postSpacing");
-  const panelWidth = value("panelWidth");
+  const fenceLength = lengthValue("fenceLength");
+  const postSpacing = lengthValue("postSpacing");
+  const panelWidth = lengthValue("panelWidth");
   const panelPrice = value("panelPrice");
   const postPrice = value("postPrice");
   const gateCount = intValue("gateCount");
   const gatePrice = value("gatePrice");
   const railCount = value("railCount");
-  const railLength = value("railLength");
+  const railLength = lengthValue("railLength");
   const railPrice = value("railPrice");
   const picketsPerFoot = value("picketsPerFoot");
   const picketPrice = value("picketPrice");
@@ -388,7 +532,7 @@ bindCalculator("fence-form", "fenceResults", () => {
   const materialCost = panelCost + postCost + gateCost + railCost + picketCost + concreteCost + hardwareCost;
 
   return [
-    resultRow("Fence length", `${formatNumber(fenceLength)} linear ft`),
+    resultRow("Fence length", formatLinearLength(fenceLength)),
     resultRow("Posts needed", `${postCount}`),
     resultRow("Panels needed", `${panelCount}`),
     resultRow("Rail pieces needed", `${railPieces}`),

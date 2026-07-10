@@ -46,11 +46,11 @@ faq:
   - q: "Should I buy all pavers at once?"
     a: "For color consistency, it is often smart to buy enough pavers from the same batch or order, especially for visible patio projects."
 ---
-          <label>Patio length <div class="input-row"><input type="number" id="patioLength" min="0" step="0.1" placeholder="12" required><span>feet</span></div></label>
-          <label>Patio width <div class="input-row"><input type="number" id="patioWidth" min="0" step="0.1" placeholder="10" required><span>feet</span></div></label>
-          <label>Paver length <div class="input-row"><input type="number" id="paverLength" min="0" step="0.01" value="12" required><span>inches</span></div></label>
-          <label>Paver width <div class="input-row"><input type="number" id="paverWidth" min="0" step="0.01" value="12" required><span>inches</span></div></label>
+          <label>Patio length <div class="input-row"><input type="number" id="patioLength" min="0" step="0.1" placeholder="12" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Patio width <div class="input-row"><input type="number" id="patioWidth" min="0" step="0.1" placeholder="10" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Paver length <div class="input-row"><input type="number" id="paverLength" min="0" step="0.01" value="12" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
+          <label>Paver width <div class="input-row"><input type="number" id="paverWidth" min="0" step="0.01" value="12" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
           <label>Price per paver <div class="input-row"><span>$</span><input type="number" id="paverPrice" min="0" step="0.01" value="2.50" required></div></label>
-          <label>Base gravel depth <div class="input-row"><input type="number" id="baseDepth" min="0" step="0.1" value="4" required><span>inches</span></div></label>
-          <label>Leveling sand depth <div class="input-row"><input type="number" id="sandDepth" min="0" step="0.1" value="1" required><span>inches</span></div></label>
+          <label>Base gravel depth <div class="input-row"><input type="number" id="baseDepth" min="0" step="0.1" value="4" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
+          <label>Leveling sand depth <div class="input-row"><input type="number" id="sandDepth" min="0" step="0.1" value="1" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
           <label>Overage for cuts/breakage <div class="input-row"><input type="number" id="paverOverage" min="0" step="1" value="10" required><span>%</span></div></label>

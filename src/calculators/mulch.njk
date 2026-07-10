@@ -46,8 +46,8 @@ faq:
   - q: "Should I add extra mulch to my estimate?"
     a: "A small buffer can help if your beds are uneven or your measurements are rough, but avoid buying so much that the final layer becomes too deep."
 ---
-          <label>Length <div class="input-row"><input type="number" id="mulchLength" min="0" step="0.1" placeholder="10" required><span>feet</span></div></label>
-          <label>Width <div class="input-row"><input type="number" id="mulchWidth" min="0" step="0.1" placeholder="8" required><span>feet</span></div></label>
-          <label>Desired mulch depth <div class="input-row"><input type="number" id="mulchDepth" min="0" step="0.1" value="2" required><span>inches</span></div></label>
+          <label>Length <div class="input-row"><input type="number" id="mulchLength" min="0" step="0.1" placeholder="10" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Width <div class="input-row"><input type="number" id="mulchWidth" min="0" step="0.1" placeholder="8" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Desired mulch depth <div class="input-row"><input type="number" id="mulchDepth" min="0" step="0.1" value="2" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
           <label>Bag size <div class="input-row"><input type="number" id="mulchBagSize" min="0" step="0.1" value="2" required><span>cu ft</span></div></label>
           <label>Price per bag <div class="input-row"><span>$</span><input type="number" id="mulchBagPrice" min="0" step="0.01" value="3.98" required></div></label>

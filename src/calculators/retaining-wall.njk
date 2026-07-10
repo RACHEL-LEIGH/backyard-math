@@ -46,14 +46,14 @@ faq:
   - q: "Is this calculator enough to design a retaining wall?"
     a: "No. It is for material planning only. Retaining wall safety depends on design, drainage, soil pressure, installation, and local requirements."
 ---
-          <label>Wall length <div class="input-row"><input type="number" id="wallLength" min="0" step="0.1" placeholder="20" required><span>feet</span></div></label>
-          <label>Wall height <div class="input-row"><input type="number" id="wallHeight" min="0" step="0.1" placeholder="2" required><span>feet</span></div></label>
-          <label>Block length <div class="input-row"><input type="number" id="blockLength" min="0" step="0.1" value="16" required><span>inches</span></div></label>
-          <label>Block height <div class="input-row"><input type="number" id="blockHeight" min="0" step="0.1" value="6" required><span>inches</span></div></label>
+          <label>Wall length <div class="input-row"><input type="number" id="wallLength" min="0" step="0.1" placeholder="20" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Wall height <div class="input-row"><input type="number" id="wallHeight" min="0" step="0.1" placeholder="2" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Block length <div class="input-row"><input type="number" id="blockLength" min="0" step="0.1" value="16" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
+          <label>Block height <div class="input-row"><input type="number" id="blockHeight" min="0" step="0.1" value="6" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
           <label>Price per wall block <div class="input-row"><span>$</span><input type="number" id="blockPrice" min="0" step="0.01" value="3.50" required></div></label>
-          <label>Cap block length <div class="input-row"><input type="number" id="capLength" min="0" step="0.1" value="12" required><span>inches</span></div></label>
+          <label>Cap block length <div class="input-row"><input type="number" id="capLength" min="0" step="0.1" value="12" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
           <label>Price per cap block <div class="input-row"><span>$</span><input type="number" id="capPrice" min="0" step="0.01" value="3.00" required></div></label>
-          <label>Drainage gravel width behind wall <div class="input-row"><input type="number" id="wallGravelWidth" min="0" step="0.1" value="1" required><span>feet</span></div></label>
-          <label>Base gravel depth <div class="input-row"><input type="number" id="wallGravelDepth" min="0" step="0.1" value="6" required><span>inches</span></div></label>
-          <label>Backfill gravel height <div class="input-row"><input type="number" id="wallGravelHeight" min="0" step="0.1" value="2" required><span>feet</span></div></label>
+          <label>Drainage gravel width behind wall <div class="input-row"><input type="number" id="wallGravelWidth" min="0" step="0.1" value="1" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Base gravel depth <div class="input-row"><input type="number" id="wallGravelDepth" min="0" step="0.1" value="6" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
+          <label>Backfill gravel height <div class="input-row"><input type="number" id="wallGravelHeight" min="0" step="0.1" value="2" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
           <label>Overage <div class="input-row"><input type="number" id="wallOverage" min="0" step="1" value="10" required><span>%</span></div></label>

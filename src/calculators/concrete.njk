@@ -56,20 +56,20 @@ faq:
           </label>
 
           <div data-concrete-section="slab">
-            <label>Slab length <div class="input-row"><input type="number" id="slabLength" min="0" step="0.1" placeholder="10"><span>feet</span></div></label>
-            <label>Slab width <div class="input-row"><input type="number" id="slabWidth" min="0" step="0.1" placeholder="10"><span>feet</span></div></label>
-            <label>Slab thickness <div class="input-row"><input type="number" id="slabThickness" min="0" step="0.1" value="4"><span>inches</span></div></label>
+            <label>Slab length <div class="input-row"><input type="number" id="slabLength" min="0" step="0.1" placeholder="10" data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+            <label>Slab width <div class="input-row"><input type="number" id="slabWidth" min="0" step="0.1" placeholder="10" data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+            <label>Slab thickness <div class="input-row"><input type="number" id="slabThickness" min="0" step="0.1" value="4" data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
           </div>
 
           <div data-concrete-section="footing" class="is-hidden">
-            <label>Footing length <div class="input-row"><input type="number" id="footingLength" min="0" step="0.1" placeholder="20"><span>feet</span></div></label>
-            <label>Footing width <div class="input-row"><input type="number" id="footingWidth" min="0" step="0.1" value="1"><span>feet</span></div></label>
-            <label>Footing depth <div class="input-row"><input type="number" id="footingDepth" min="0" step="0.1" value="12"><span>inches</span></div></label>
+            <label>Footing length <div class="input-row"><input type="number" id="footingLength" min="0" step="0.1" placeholder="20" data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+            <label>Footing width <div class="input-row"><input type="number" id="footingWidth" min="0" step="0.1" value="1" data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+            <label>Footing depth <div class="input-row"><input type="number" id="footingDepth" min="0" step="0.1" value="12" data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
           </div>
 
           <div data-concrete-section="posthole" class="is-hidden">
-            <label>Hole diameter <div class="input-row"><input type="number" id="holeDiameter" min="0" step="0.1" value="12"><span>inches</span></div></label>
-            <label>Hole depth <div class="input-row"><input type="number" id="holeDepth" min="0" step="0.1" value="24"><span>inches</span></div></label>
+            <label>Hole diameter <div class="input-row"><input type="number" id="holeDiameter" min="0" step="0.1" value="12" data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
+            <label>Hole depth <div class="input-row"><input type="number" id="holeDepth" min="0" step="0.1" value="24" data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
             <label>Number of holes <div class="input-row"><input type="number" id="holeCount" min="1" step="1" value="1"><span>holes</span></div></label>
           </div>
 

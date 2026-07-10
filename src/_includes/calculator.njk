@@ -13,7 +13,13 @@ layout: base.njk
     <section class="section">
       <div class="container calculator-layout">
         <form id="{{ formId }}" class="calculator-card">
-          <h2>{{ formHeading }}</h2>
+          <div class="form-head">
+            <h2>{{ formHeading }}</h2>
+            <div class="unit-toggle" role="group" aria-label="Measurement units">
+              <button type="button" class="unit-toggle-btn is-active" data-units="imperial" aria-pressed="true">Imperial</button>
+              <button type="button" class="unit-toggle-btn" data-units="metric" aria-pressed="false">Metric</button>
+            </div>
+          </div>
           {{ content | safe }}
           <button class="button full" type="submit">{{ submitLabel }}</button>
         </form>

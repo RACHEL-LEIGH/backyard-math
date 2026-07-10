@@ -46,9 +46,9 @@ faq:
   - q: "Should I mix compost into raised bed soil?"
     a: "Compost can improve organic matter and nutrients, but the right amount depends on your soil mix and what you are growing."
 ---
-          <label>Bed length <div class="input-row"><input type="number" id="soilLength" min="0" step="0.1" placeholder="8" required><span>feet</span></div></label>
-          <label>Bed width <div class="input-row"><input type="number" id="soilWidth" min="0" step="0.1" placeholder="4" required><span>feet</span></div></label>
-          <label>Fill depth <div class="input-row"><input type="number" id="soilDepth" min="0" step="0.1" value="12" required><span>inches</span></div></label>
+          <label>Bed length <div class="input-row"><input type="number" id="soilLength" min="0" step="0.1" placeholder="8" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Bed width <div class="input-row"><input type="number" id="soilWidth" min="0" step="0.1" placeholder="4" required data-conv="length"><span data-imperial="feet" data-metric="meters">feet</span></div></label>
+          <label>Fill depth <div class="input-row"><input type="number" id="soilDepth" min="0" step="0.1" value="12" required data-conv="depth"><span data-imperial="inches" data-metric="cm">inches</span></div></label>
           <label>Number of beds <div class="input-row"><input type="number" id="soilBeds" min="1" step="1" value="1" required><span>beds</span></div></label>
           <label>Bag size <div class="input-row"><input type="number" id="soilBagSize" min="0" step="0.1" value="1.5" required><span>cu ft</span></div></label>
           <label>Price per bag <div class="input-row"><span>$</span><input type="number" id="soilBagPrice" min="0" step="0.01" value="8.00" required></div></label>

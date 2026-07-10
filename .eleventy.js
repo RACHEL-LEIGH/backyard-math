@@ -7,7 +7,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/og-image.png");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/sitemap.xml");
-  eleventyConfig.addPassthroughCopy("src/CNAME");
 
   eleventyConfig.addFilter("jsonify", (value) => JSON.stringify(value, null, 2));
   eleventyConfig.addFilter("findCalculator", (list, slug) => list.find((c) => c.slug === slug));

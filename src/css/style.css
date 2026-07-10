@@ -414,6 +414,61 @@ h3 { font-size: 1.25rem; }
   font-family: inherit;
 }
 
+.cost-compare {
+  margin-top: 6px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.cost-compare-title {
+  font-weight: 800;
+  font-size: 0.92rem;
+  margin: 0 0 12px;
+}
+
+.cost-compare-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.cost-compare-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.cost-compare-track {
+  background: var(--surface-soft);
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.cost-compare-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--border);
+  transition: width 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cost-compare-bar.is-best { background: var(--accent); }
+
+.cost-compare-value {
+  font-weight: 800;
+  font-size: 0.9rem;
+  min-width: 64px;
+  text-align: right;
+}
+
+.cost-compare-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 10px 0 0;
+}
+
 .content p, .content li { color: var(--muted); }
 
 .faq-grid {

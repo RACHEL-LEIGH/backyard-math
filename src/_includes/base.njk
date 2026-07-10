@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <script>
+    (function () {
+      var stored = localStorage.getItem("bm-theme");
+      var theme = stored === "dark" || stored === "light"
+        ? stored
+        : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.gaId }}"></script>
   <script>
@@ -37,10 +47,30 @@
   <header class="site-header">
   <div class="container nav">
     <a class="logo" href="/index.html">Backyard Math</a>
-    <nav>
-      <a href="/index.html#calculators">Calculators</a>
-      <a href="/index.html#how-it-works">How It Works</a>
-    </nav>
+    <div class="nav-right">
+      <nav>
+        <a href="/index.html#calculators">Calculators</a>
+        <a href="/index.html#how-it-works">How It Works</a>
+      </nav>
+      <button type="button" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 3a9 9 0 1 0 9 10.5A7.5 7.5 0 0 1 12 3Z" />
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+          <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <line x1="12" y1="1.5" x2="12" y2="4" />
+            <line x1="12" y1="20" x2="12" y2="22.5" />
+            <line x1="1.5" y1="12" x2="4" y2="12" />
+            <line x1="20" y1="12" x2="22.5" y2="12" />
+            <line x1="4.2" y1="4.2" x2="6" y2="6" />
+            <line x1="18" y1="18" x2="19.8" y2="19.8" />
+            <line x1="4.2" y1="19.8" x2="6" y2="18" />
+            <line x1="18" y1="6" x2="19.8" y2="4.2" />
+          </g>
+        </svg>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -59,6 +89,9 @@
 </footer>
 {% if faq %}
   {% faqSchema faq %}
+{% endif %}
+<script src="/js/theme.js"></script>
+{% if faq %}
   <script src="/js/calculators.js"></script>
 {% endif %}
 </body>
